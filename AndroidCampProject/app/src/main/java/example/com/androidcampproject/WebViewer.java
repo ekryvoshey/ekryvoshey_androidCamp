@@ -3,15 +3,18 @@ package example.com.androidcampproject;
 import android.app.Fragment;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import java.net.CookieManager;
 import java.net.URL;
@@ -31,7 +34,6 @@ public class WebViewer extends Fragment {
             "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
     String newUrl = "https://oauth.vk.com/authorize?redirect_uri=https://oauth.vk.com/blank.html&" +
             "client_id=4980818&response_type=token&scope=offline,wall,friends&display=mobile";
-
 
     @Nullable
     @Override
