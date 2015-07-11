@@ -4,10 +4,14 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
+import de.greenrobot.event.EventBus;
+
 public class MainActivity extends AppCompatActivity {
     public static final String TOKEN_KEY = "tokenKey";
     public static final String EXPIRES_KEY = "expiresKey";
     public static final String USER_KEY = "userKey";
+
+    EventBus bus = EventBus.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

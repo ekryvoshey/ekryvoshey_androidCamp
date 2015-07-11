@@ -52,6 +52,7 @@ public class WebViewer extends Fragment {
                     editor.putString(accessToken, MainActivity.TOKEN_KEY);
                     editor.putString(expiresIn, MainActivity.EXPIRES_KEY);
                     editor.putString(userId, MainActivity.USER_KEY);
+                    editor.commit();
 
                     // TODO editor commit
                     // TODO post event to MainActivity with EventBus
