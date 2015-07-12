@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Ascaron on 04.07.2015.
  */
@@ -26,6 +28,10 @@ public class WebViewer extends Fragment {
     String login_url = OAUTH_URI + "?redirect_uri=" + REDIRECT_URI + "&client_id=" + CLIENT_ID +
             "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
 
+    EventBus bus = EventBus.getDefault();
+    EditorEvent event = null;
+    private String data;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater,
@@ -38,24 +44,22 @@ public class WebViewer extends Fragment {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(REDIRECT_URI)) {
-                    //створюємо об"єкт, який буде витягувати змінні із ссилки
-                    Uri uri = Uri.parse(url);
-                    //це 3 змінні які ми хочемо витягнути із ссилки
+                    Uri uri = Uri.parse(url.replace("#", "?"));
                     String accessToken = uri.getQueryParameter("access_token");
                     String expiresIn = uri.getQueryParameter("expires_in");
                     String userId = uri.getQueryParameter("user_id");
-                    //тут бубудть зберігатися змінні accessToken, expiresIn, userId
+
                     SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-                    //editor потрібен для можливості зберігати змінні в SharedPreferences
                     SharedPreferences.Editor editor = sharedPref.edit();
-                    //зберігаємо змінні, для цього потрібно створити ключ-константу для кожної змінної
+
                     editor.putString(accessToken, MainActivity.TOKEN_KEY);
                     editor.putString(expiresIn, MainActivity.EXPIRES_KEY);
                     editor.putString(userId, MainActivity.USER_KEY);
                     editor.commit();
 
-                    // TODO editor commit
-                    // TODO post event to MainActivity with EventBus
+                    data = accessToken+ "." + expiresIn + "." + userId;
+                    event = new EditorEvent(data);
+                    bus.post(event);
 
                     return true;
                 }
