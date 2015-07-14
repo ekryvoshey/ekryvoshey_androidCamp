@@ -15,16 +15,16 @@ import android.webkit.WebViewClient;
 import de.greenrobot.event.EventBus;
 
 /**
- * Created by Ascaron on 04.07.2015.
+ * Created by Esmond on 14.07.2015.
  */
-public class WebViewer extends Fragment {
+public class WebViewClientFragment extends Fragment {
     WebView myWebView;
-    static String OAUTH_URI = "https://oauth.vk.com/authorize";
-    static String REDIRECT_URI = "https://oauth.vk.com/blank.html";
-    static String CLIENT_ID = "4980818";
-    static String RESPONSE_TYPE = "token";
-    static String SCOPE = "offline,wall,friends";
-    static String DISPLAY = "mobile";
+    static final String OAUTH_URI = "https://oauth.vk.com/authorize";
+    static final String REDIRECT_URI = "https://oauth.vk.com/blank.html";
+    static final String CLIENT_ID = "4980818";
+    static final String RESPONSE_TYPE = "token";
+    static final String SCOPE = "offline,wall,friends";
+    static final String DISPLAY = "mobile";
     String login_url = OAUTH_URI + "?redirect_uri=" + REDIRECT_URI + "&client_id=" + CLIENT_ID +
             "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
 
