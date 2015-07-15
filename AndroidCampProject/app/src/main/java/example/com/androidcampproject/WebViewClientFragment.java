@@ -38,7 +38,6 @@ public class WebViewClientFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.webviewfragment_layout, container, false);
         myWebView = (WebView) view.findViewById(R.id.myWebView);
-        myWebView.loadUrl(login_url);
 
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
@@ -57,7 +56,7 @@ public class WebViewClientFragment extends Fragment {
                     editor.putString(userId, MainActivity.USER_KEY);
                     editor.commit();
 
-                    data = accessToken+ "." + expiresIn + "." + userId;
+                    data = accessToken + "." + expiresIn + "." + userId;
                     event = new EditorEvent(data);
                     bus.post(event);
 
@@ -66,6 +65,7 @@ public class WebViewClientFragment extends Fragment {
                 return false;
             }
         });
+        myWebView.loadUrl(login_url);
         return view;
     }
 }

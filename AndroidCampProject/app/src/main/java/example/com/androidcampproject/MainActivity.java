@@ -2,6 +2,7 @@ package example.com.androidcampproject;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.app.usage.UsageEvents;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
@@ -20,9 +21,12 @@ public class MainActivity extends AppCompatActivity {
     public static final String USER_KEY = "userKey";
 
     EventBus bus = EventBus.getDefault();
+
     FragmentManager fm = getFragmentManager();
     FragmentTransaction ft = fm.beginTransaction();
+
     WebViewClientFragment wvcf = new WebViewClientFragment();
+    RecyclerViewFragment rvf = new RecyclerViewFragment();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,13 +42,12 @@ public class MainActivity extends AppCompatActivity {
         // TODO Use FragmentManager to set fragments (WebView or friends list - depends if we have token)
     }
 
-    public void onEvent(EditorEvent event){
+    public void onEvent(EditorEvent event) {
         event.getData();
     }
 
     @Override
     protected void onDestroy() {
-        // Unregister
         bus.unregister(this);
         super.onDestroy();
     }
