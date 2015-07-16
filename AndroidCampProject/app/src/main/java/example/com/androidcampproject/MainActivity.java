@@ -60,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences.Editor ed = sPref.edit();
         ed.putString(SAVED_TEXT, event.getData());
         ed.commit();
+        FragmentManager fmNew = getFragmentManager();
+        FragmentTransaction ftNew = fmNew.beginTransaction();
+        ftNew.replace(R.id.listFragment, rvf);
+        ftNew.commit();
     }
 
     @Override
