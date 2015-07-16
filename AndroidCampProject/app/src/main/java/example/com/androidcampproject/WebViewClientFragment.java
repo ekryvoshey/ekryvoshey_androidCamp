@@ -51,9 +51,9 @@ public class WebViewClientFragment extends Fragment {
                     SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putString(accessToken, MainActivity.TOKEN_KEY);
-                    editor.putString(expiresIn, MainActivity.EXPIRES_KEY);
-                    editor.putString(userId, MainActivity.USER_KEY);
+                    editor.putString(MainActivity.TOKEN_KEY, accessToken);
+                    editor.putString(MainActivity.EXPIRES_KEY, expiresIn);
+                    editor.putString(MainActivity.USER_KEY, userId);
                     editor.commit();
 
                     data = accessToken + "." + expiresIn + "." + userId;
