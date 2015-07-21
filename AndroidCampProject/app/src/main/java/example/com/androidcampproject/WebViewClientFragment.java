@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,19 +19,22 @@ import de.greenrobot.event.EventBus;
  * Created by Esmond on 14.07.2015.
  */
 public class WebViewClientFragment extends Fragment {
-    WebView myWebView;
     static final String OAUTH_URI = "https://oauth.vk.com/authorize";
     static final String REDIRECT_URI = "https://oauth.vk.com/blank.html";
     static final String CLIENT_ID = "4980818";
     static final String RESPONSE_TYPE = "token";
     static final String SCOPE = "offline,wall,friends";
     static final String DISPLAY = "mobile";
-    String login_url = OAUTH_URI + "?redirect_uri=" + REDIRECT_URI + "&client_id=" + CLIENT_ID +
-            "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
 
-    EventBus bus = EventBus.getDefault();
-    EditorEvent event = null;
-    private String data;
+    private String login_url = OAUTH_URI + "?redirect_uri=" + REDIRECT_URI + "&client_id=" + CLIENT_ID +
+            "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
+    private WebView myWebView;
+    private EventBus bus = EventBus.getDefault();
+    private EditorEvent event = new EditorEvent();
+
+    private String accessToken;
+    private String expiresIn;
+    private String userId;
 
     @Nullable
     @Override
@@ -44,9 +48,9 @@ public class WebViewClientFragment extends Fragment {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 if (url.startsWith(REDIRECT_URI)) {
                     Uri uri = Uri.parse(url.replace("#", "?"));
-                    String accessToken = uri.getQueryParameter("access_token");
-                    String expiresIn = uri.getQueryParameter("expires_in");
-                    String userId = uri.getQueryParameter("user_id");
+                    accessToken = uri.getQueryParameter("access_token");
+                    expiresIn = uri.getQueryParameter("expires_in");
+                    userId = uri.getQueryParameter("user_id");
 
                     SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
                     SharedPreferences.Editor editor = sharedPref.edit();
@@ -55,11 +59,7 @@ public class WebViewClientFragment extends Fragment {
                     editor.putString(MainActivity.EXPIRES_KEY, expiresIn);
                     editor.putString(MainActivity.USER_KEY, userId);
                     editor.commit();
-
-                    data = accessToken + "." + expiresIn + "." + userId;
-                    event = new EditorEvent(data);
                     bus.post(event);
-
                     return true;
                 }
                 return false;
@@ -68,4 +68,7 @@ public class WebViewClientFragment extends Fragment {
         myWebView.loadUrl(login_url);
         return view;
     }
+    public String getAccessToken() { return accessToken; }
+    public String getUserId() { return userId; }
+    public String getExpiresIn() { return expiresIn; }
 }

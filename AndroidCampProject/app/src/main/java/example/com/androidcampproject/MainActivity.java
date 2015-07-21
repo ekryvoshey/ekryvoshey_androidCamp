@@ -18,53 +18,45 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 
+import java.sql.SQLOutput;
+
 import de.greenrobot.event.EventBus;
 
 public class MainActivity extends AppCompatActivity {
     public static final String TOKEN_KEY = "tokenKey";
     public static final String EXPIRES_KEY = "expiresKey";
     public static final String USER_KEY = "userKey";
-    public static final String SAVED_TEXT = "savedText";
 
-    EventBus bus = EventBus.getDefault();
-    SharedPreferences sPref;
-    SharedPreferences.Editor sEditor;
-    String s;
+    private static EventBus bus = EventBus.getDefault();
+    private static WebViewClientFragment wvcf = new WebViewClientFragment();
+    private static RecyclerViewFragment rvf = new RecyclerViewFragment();
 
-    FragmentManager fm = getFragmentManager();
-    FragmentTransaction ft = fm.beginTransaction();
-
-    WebViewClientFragment wvcf = new WebViewClientFragment();
-    RecyclerViewFragment rvf = new RecyclerViewFragment();
+    public static String accessToken = wvcf.getAccessToken();
+    public static String userId = wvcf.getUserId();
+    public static String expiresIn = wvcf.getExpiresIn();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         bus.register(this);
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        String data = sharedPref.getString(SAVED_TEXT, null);
 
-        if(data != null){
-            ft.replace(R.id.listFragment, rvf);
-            ft.commit();
-        } else if (data == null) {
-            ft.replace(R.id.listFragment, wvcf);
-            ft.commit();
+        FragmentManager fmOnCreate = getFragmentManager();
+        FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
+        if(accessToken != null){
+            ftOnCreate.replace(R.id.listFragment, rvf);
+            ftOnCreate.commit();
+        } else if (accessToken == null) {
+            ftOnCreate.replace(R.id.listFragment, wvcf);
+            ftOnCreate.commit();
         }
     }
 
     public void onEvent(EditorEvent event) {
-        sPref = getPreferences(MODE_PRIVATE);
-        SharedPreferences.Editor ed = sPref.edit();
-        ed.putString(SAVED_TEXT, event.getData());
-        ed.commit();
-
-        FragmentManager fmNew = getFragmentManager();
-        FragmentTransaction ftNew = fmNew.beginTransaction();
-        ftNew.replace(R.id.listFragment, rvf);
-        ftNew.commit();
+        FragmentManager fmEvent = getFragmentManager();
+        FragmentTransaction ftEvent = fmEvent.beginTransaction();
+        ftEvent.replace(R.id.listFragment, rvf);
+        ftEvent.commit();
     }
 
     @Override
