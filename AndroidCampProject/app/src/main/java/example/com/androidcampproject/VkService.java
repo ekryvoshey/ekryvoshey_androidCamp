@@ -1,7 +1,5 @@
 package example.com.androidcampproject;
 
-import java.util.List;
-
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
@@ -12,7 +10,7 @@ import retrofit.http.Query;
  */
 public interface VkService {
     @GET("/method/friends.get")
-    void getFriendsList(@Query("id") String userId, Callback<List<Friend>> cb);
+    void getFriendsList(@Query("id") String userId, Callback<FriendsListResponse> cb);
 
     @GET("/method/{id}/photos.getAlbums")
     void getPhotoAlbum(@Path("id") int ownerId, Callback<Album> cb);

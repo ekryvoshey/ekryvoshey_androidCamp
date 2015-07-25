@@ -15,9 +15,9 @@ import java.util.List;
  */
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
 
-    List<Person> persons;
+    List<Friend> persons;
 
-    RVAdapter(List<Person> persons){
+    RVAdapter(List<Friend> persons){
         this.persons = persons;
     }
 
@@ -30,9 +30,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public void onBindViewHolder(PersonViewHolder holder, int i) {
-        holder.personName.setText(persons.get(i).name);
-        holder.personCity.setText(persons.get(i).city);
-        holder.personPhoto.setImageResource(persons.get(i).photoId);
+        holder.personName.setText(persons.get(i).getFirst_name());
+        // TODO use Glide to load image
+        //holder.personPhoto.setImageResource(persons.get(i).photoId);
     }
 
     @Override
@@ -58,5 +58,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
             personCity = (TextView)itemView.findViewById(R.id.person_city);
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
         }
+    }
+
+    public void setData(List<Friend> persons){
+        this.persons = persons;
     }
 }

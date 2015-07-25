@@ -14,24 +14,30 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.events.LoadFriendsListEvent;
 
 /**
  * Created by Esmond on 15.07.2015.
  */
-public class RecyclerViewFragment extends Fragment {
+public class FriendsListFragment extends Fragment {
 
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RVAdapter rvAdapter;
     List<Person> persons;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EventBus.getDefault().post(new LoadFriendsListEvent());
+    }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view_layout, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
 
         initializeData();
@@ -51,8 +57,14 @@ public class RecyclerViewFragment extends Fragment {
         persons.add(new Person("User Three", "City Three", R.drawable.notification_template_icon_bg));
     }
 
-    private void initializeAdapter(){
+    private void initializeAdapter() {
         RVAdapter adapter = new RVAdapter(persons);
         recyclerView.setAdapter(adapter);
+    }
+
+    public void onEvent(FriendsListResponse event){
+        //TODO
+        rvAdapter.setData(event.getResponse());
+        rvAdapter.notifyDataSetChanged();
     }
 }
