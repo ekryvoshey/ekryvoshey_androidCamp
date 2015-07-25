@@ -1,8 +1,8 @@
 package example.com.androidcampproject;
 
 import android.app.Application;
-
-import java.util.List;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.events.LoadFriendsListEvent;
@@ -15,10 +15,8 @@ import retrofit.client.Response;
  * Created by Esmond on 19.07.2015.
  */
 public class MyApplication extends Application {
-    String accessToken = MainActivity.accessToken;
-    String userId = MainActivity.userId;
     static VkService vkService;
-    EditorEvent event = new EditorEvent();
+    UserSignedInEvent event = new UserSignedInEvent();
 
     @Override
     public void onCreate() {
@@ -29,7 +27,9 @@ public class MyApplication extends Application {
     }
 
     public void onEvent(LoadFriendsListEvent event) {
-        vkService.getFriendsList(userId, new Callback<FriendsListResponse>() {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        String userId = sharedPref.getString(MainActivity.USER_KEY, "");
+        vkService.getFriendsList(userId, "photo", new Callback<FriendsListResponse>() {
             @Override
             public void success(FriendsListResponse friendsListResponse, Response response) {
                 EventBus.getDefault().post(friendsListResponse);

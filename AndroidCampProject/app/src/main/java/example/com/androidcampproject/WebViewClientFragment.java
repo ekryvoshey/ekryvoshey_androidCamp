@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,10 +30,8 @@ public class WebViewClientFragment extends Fragment {
             "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
     private WebView myWebView;
     private EventBus bus = EventBus.getDefault();
-    private EditorEvent event = new EditorEvent();
 
     private String accessToken;
-    private String expiresIn;
     private String userId;
 
     @Nullable
@@ -49,17 +47,15 @@ public class WebViewClientFragment extends Fragment {
                 if (url.startsWith(REDIRECT_URI)) {
                     Uri uri = Uri.parse(url.replace("#", "?"));
                     accessToken = uri.getQueryParameter("access_token");
-                    expiresIn = uri.getQueryParameter("expires_in");
                     userId = uri.getQueryParameter("user_id");
 
-                    SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
+                    SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     SharedPreferences.Editor editor = sharedPref.edit();
 
                     editor.putString(MainActivity.TOKEN_KEY, accessToken);
-                    editor.putString(MainActivity.EXPIRES_KEY, expiresIn);
                     editor.putString(MainActivity.USER_KEY, userId);
                     editor.commit();
-                    bus.post(event);
+                    bus.post(new UserSignedInEvent());
                     return true;
                 }
                 return false;
@@ -68,7 +64,4 @@ public class WebViewClientFragment extends Fragment {
         myWebView.loadUrl(login_url);
         return view;
     }
-    public String getAccessToken() { return accessToken; }
-    public String getUserId() { return userId; }
-    public String getExpiresIn() { return expiresIn; }
 }

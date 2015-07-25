@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> {
 
-    List<Friend> persons;
+    List<Friend> persons = new ArrayList<>(0);
 
     RVAdapter(List<Friend> persons){
         this.persons = persons;
@@ -42,6 +43,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.PersonViewHolder> 
 
     @Override
     public int getItemCount() {
+        if(persons == null) return 0;
         return persons.size();
     }
 

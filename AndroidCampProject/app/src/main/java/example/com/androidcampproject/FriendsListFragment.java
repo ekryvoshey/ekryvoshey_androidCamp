@@ -1,5 +1,6 @@
 package example.com.androidcampproject;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -24,7 +25,19 @@ public class FriendsListFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RVAdapter rvAdapter;
-    List<Person> persons;
+    List<Friend> persons;
+
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        EventBus.getDefault().register(this);
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        EventBus.getDefault().unregister(this);
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,7 +53,6 @@ public class FriendsListFragment extends Fragment {
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
 
-        initializeData();
         initializeAdapter();
 
         rvAdapter = new RVAdapter(persons);
@@ -50,20 +62,12 @@ public class FriendsListFragment extends Fragment {
         return view;
     }
 
-    private void initializeData() {
-        persons = new ArrayList<>();
-        persons.add(new Person("User One", "City One", R.drawable.notification_template_icon_bg));
-        persons.add(new Person("User Two", "City Two", R.drawable.notification_template_icon_bg));
-        persons.add(new Person("User Three", "City Three", R.drawable.notification_template_icon_bg));
-    }
-
     private void initializeAdapter() {
         RVAdapter adapter = new RVAdapter(persons);
         recyclerView.setAdapter(adapter);
     }
 
     public void onEvent(FriendsListResponse event){
-        //TODO
         rvAdapter.setData(event.getResponse());
         rvAdapter.notifyDataSetChanged();
     }

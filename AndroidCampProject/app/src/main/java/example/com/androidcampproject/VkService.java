@@ -10,7 +10,7 @@ import retrofit.http.Query;
  */
 public interface VkService {
     @GET("/method/friends.get")
-    void getFriendsList(@Query("id") String userId, Callback<FriendsListResponse> cb);
+    void getFriendsList(@Query("user_id") String userId, @Query("fields") String photo, Callback<FriendsListResponse> cb);
 
     @GET("/method/{id}/photos.getAlbums")
     void getPhotoAlbum(@Path("id") int ownerId, Callback<Album> cb);
