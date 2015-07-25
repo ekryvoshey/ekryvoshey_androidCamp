@@ -5,13 +5,14 @@ import java.util.List;
 import retrofit.Callback;
 import retrofit.http.GET;
 import retrofit.http.Path;
+import retrofit.http.Query;
 
 /**
  * Created by Esmond on 20.07.2015.
  */
 public interface VkService {
     @GET("/method/friends.get")
-    void getFriendsList(Callback<Friend> cb);
+    void getFriendsList(@Query("id") String userId, Callback<List<Friend>> cb);
 
     @GET("/method/{id}/photos.getAlbums")
     void getPhotoAlbum(@Path("id") int ownerId, Callback<Album> cb);

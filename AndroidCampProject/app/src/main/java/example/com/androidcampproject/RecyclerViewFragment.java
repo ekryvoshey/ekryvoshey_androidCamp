@@ -13,6 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.Inflater;
 
+import de.greenrobot.event.EventBus;
+
 /**
  * Created by Esmond on 15.07.2015.
  */
