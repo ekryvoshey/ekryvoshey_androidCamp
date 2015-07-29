@@ -1,7 +1,6 @@
 package example.com.androidcampproject;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -14,6 +13,9 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.MyUtilities;
+import example.com.androidcampproject.R;
+import example.com.androidcampproject.events.UserSignedInEvent;
 
 /**
  * Created by Esmond on 14.07.2015.
@@ -52,8 +54,8 @@ public class WebViewClientFragment extends Fragment {
                     SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(getActivity());
                     SharedPreferences.Editor editor = sharedPref.edit();
 
-                    editor.putString(MainActivity.TOKEN_KEY, accessToken);
-                    editor.putString(MainActivity.USER_KEY, userId);
+                    editor.putString(MyUtilities.TOKEN_KEY, accessToken);
+                    editor.putString(MyUtilities.USER_KEY, userId);
                     editor.commit();
                     bus.post(new UserSignedInEvent());
                     return true;

@@ -6,6 +6,9 @@ import android.preference.PreferenceManager;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.events.LoadFriendsListEvent;
+import example.com.androidcampproject.events.UserSignedInEvent;
+import example.com.androidcampproject.interfaces.VkService;
+import example.com.androidcampproject.responses.FriendsListResponse;
 import retrofit.Callback;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
@@ -28,7 +31,7 @@ public class MyApplication extends Application {
 
     public void onEvent(LoadFriendsListEvent event) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String userId = sharedPref.getString(MainActivity.USER_KEY, "");
+        String userId = sharedPref.getString(MyUtilities.USER_KEY, "");
         vkService.getFriendsList(userId, "photo", new Callback<FriendsListResponse>() {
             @Override
             public void success(FriendsListResponse friendsListResponse, Response response) {

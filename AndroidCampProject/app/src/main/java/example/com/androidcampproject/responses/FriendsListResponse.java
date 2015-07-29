@@ -1,6 +1,8 @@
-package example.com.androidcampproject;
+package example.com.androidcampproject.responses;
 
 import java.util.List;
+
+import example.com.androidcampproject.Friend;
 
 /**
  * Created by i.demedyuk on 25.07.2015.

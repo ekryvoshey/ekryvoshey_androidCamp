@@ -2,6 +2,7 @@ package example.com.androidcampproject;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +11,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.zip.Inflater;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.responses.FriendsListResponse;
 import example.com.androidcampproject.events.LoadFriendsListEvent;
 
 /**
@@ -25,7 +25,9 @@ public class FriendsListFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     RVAdapter rvAdapter;
-    List<Friend> persons;
+    List<Friend> friends;
+
+    public static Context context;
 
     @Override
     public void onAttach(Activity activity) {
@@ -50,12 +52,13 @@ public class FriendsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.recycler_view_layout, container, false);
+        context = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
         layoutManager = new LinearLayoutManager(getActivity());
 
         initializeAdapter();
 
-        rvAdapter = new RVAdapter(persons);
+        rvAdapter = new RVAdapter(friends);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(layoutManager);
 
@@ -63,7 +66,7 @@ public class FriendsListFragment extends Fragment {
     }
 
     private void initializeAdapter() {
-        RVAdapter adapter = new RVAdapter(persons);
+        RVAdapter adapter = new RVAdapter(friends);
         recyclerView.setAdapter(adapter);
     }
 

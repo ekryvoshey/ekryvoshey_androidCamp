@@ -2,7 +2,6 @@ package example.com.androidcampproject;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -10,10 +9,9 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.events.UserSignedInEvent;
 
 public class MainActivity extends AppCompatActivity {
-    public static final String TOKEN_KEY = "tokenKey";
-    public static final String USER_KEY = "userKey";
 
     private static EventBus bus = EventBus.getDefault();
 
@@ -27,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = sharedPref.getString(TOKEN_KEY, "");
+        String token = sharedPref.getString(MyUtilities.TOKEN_KEY, "");
         if(token.equals("")){
             ftOnCreate.replace(R.id.listFragment, new WebViewClientFragment());
             ftOnCreate.commit();
