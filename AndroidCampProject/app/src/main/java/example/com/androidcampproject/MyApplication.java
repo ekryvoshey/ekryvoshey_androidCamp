@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.events.LoadAlbumsListEvent;
 import example.com.androidcampproject.events.LoadFriendsListEvent;
 import example.com.androidcampproject.events.UserSignedInEvent;
 import example.com.androidcampproject.interfaces.VkService;
@@ -43,5 +44,8 @@ public class MyApplication extends Application {
                 android.util.Log.e("MyApplication", "getFriendsList failed: " + error.getMessage());
             }
         });
+    }
+
+    public void onEvent(LoadAlbumsListEvent event) {
     }
 }

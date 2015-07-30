@@ -1,7 +1,6 @@
-package example.com.androidcampproject;
+package example.com.androidcampproject.adapters;
 
 import android.content.Context;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,25 +14,41 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.Friend;
+import example.com.androidcampproject.events.FriendClickEvent;
+import example.com.androidcampproject.fragments.FriendsListFragment;
+import example.com.androidcampproject.R;
+
 /**
  * Created by Esmond on 15.07.2015.
  */
-public class RVAdapter extends RecyclerView.Adapter<RVAdapter.FriendViewHolder> {
+public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder>{
+    private View view;
+    private List<Friend> friends = new ArrayList<>(0);
     public Context context = FriendsListFragment.context;
-    List<Friend> friends = new ArrayList<>(0);
-    RVAdapter(List<Friend> friends){
+
+    public FriendsListAdapter(List<Friend> friends){
         this.friends = friends;
     }
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
-        FriendViewHolder pvh = new FriendViewHolder(v);
+        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
+        FriendViewHolder pvh = new FriendViewHolder(view);
         return pvh;
     }
 
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int i) {
+        final long userId = friends.get(i).getUser_id();
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EventBus bus = new EventBus();
+                bus.post(new FriendClickEvent(userId));
+            }
+        });
         holder.firstName.setText(friends.get(i).getFirst_name());
         holder.lastName.setText(friends.get(i).getLast_name());
         Glide.with(context)

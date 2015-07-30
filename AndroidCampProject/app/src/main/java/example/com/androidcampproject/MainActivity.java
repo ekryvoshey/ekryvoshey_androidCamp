@@ -9,7 +9,11 @@ import android.support.v7.app.AppCompatActivity;
 
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.events.UserSignedInEvent;
+import example.com.androidcampproject.fragments.AlbumListFragment;
+import example.com.androidcampproject.fragments.FriendsListFragment;
+import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -37,10 +41,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEvent(UserSignedInEvent event) {
-        FragmentManager fmEvent = getFragmentManager();
-        FragmentTransaction ftEvent = fmEvent.beginTransaction();
-        ftEvent.replace(R.id.listFragment, new FriendsListFragment());
-        ftEvent.commit();
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.replace(R.id.listFragment, new FriendsListFragment());
+        fTransaction.commit();
+    }
+
+    public void onEvent(FriendClickEvent event){
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.replace(R.id.listFragment, new AlbumListFragment());
+        fTransaction.commit();
     }
 
     @Override

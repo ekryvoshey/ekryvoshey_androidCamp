@@ -4,38 +4,38 @@ package example.com.androidcampproject;
  * Created by Esmond on 21.07.2015.
  */
 public class Album {
-
-    long albumId;
-    long thumbId;
-    long ownerId;
+    long aid;
+    long thumb_id;
+    long owner_id;
     String title;
     String description;
+    String thumb_src;
     long created;
     long updated;
     int size;
 
-    public long getAlbumId() {
-        return albumId;
+    public long getAid() {
+        return aid;
     }
 
-    public void setAlbumId(int albumId) {
-        this.albumId = albumId;
+    public void setAid(int aid) {
+        this.aid = aid;
     }
 
-    public long getThumbId() {
-        return thumbId;
+    public long getThumb_id() {
+        return thumb_id;
     }
 
-    public void setThumbId(int thumbId) {
-        this.thumbId = thumbId;
+    public void setThumb_id(int thumb_id) {
+        this.thumb_id = thumb_id;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public long getOwner_id() {
+        return owner_id;
     }
 
-    public void setOwnerId(int ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner_id(int owner_id) {
+        this.owner_id = owner_id;
     }
 
     public String getTitle() {
@@ -52,6 +52,14 @@ public class Album {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getThumb_src() {
+        return thumb_src;
+    }
+
+    public void setThumb_src(String thumb_src) {
+        this.thumb_src = thumb_src;
     }
 
     public long getCreated() {

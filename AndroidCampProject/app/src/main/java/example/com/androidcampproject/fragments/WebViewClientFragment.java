@@ -1,4 +1,4 @@
-package example.com.androidcampproject;
+package example.com.androidcampproject.fragments;
 
 import android.app.Fragment;
 import android.content.SharedPreferences;
