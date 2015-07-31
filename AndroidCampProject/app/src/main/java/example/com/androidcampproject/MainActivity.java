@@ -37,7 +37,6 @@ public class MainActivity extends AppCompatActivity {
             ftOnCreate.replace(R.id.listFragment, new FriendsListFragment());
             ftOnCreate.commit();
         }
-
     }
 
     public void onEvent(UserSignedInEvent event) {
@@ -50,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(FriendClickEvent event){
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.listFragment, new AlbumListFragment());
+        fTransaction.replace(R.id.listFragment, AlbumListFragment.newInstance(event.getLong()));
         fTransaction.commit();
     }
 

@@ -31,8 +31,15 @@ public class AlbumListFragment extends Fragment {
     RecyclerView.LayoutManager layoutManager;
     AlbumListAdapter rvAdapter;
     List<Album> albums;
-
     public static Context context;
+
+    public static AlbumListFragment newInstance(long owner_id) {
+        AlbumListFragment f = new AlbumListFragment();
+        Bundle bundle = new Bundle();
+        bundle.putLong("owner_id", owner_id);
+        f.setArguments(bundle);
+        return f;
+    }
 
     @Override
     public void onAttach(Activity activity) {

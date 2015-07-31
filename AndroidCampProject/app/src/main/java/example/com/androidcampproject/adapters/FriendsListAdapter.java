@@ -1,6 +1,7 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,7 @@ import example.com.androidcampproject.R;
  */
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder>{
     private View view;
+    EventBus bus;
     private List<Friend> friends = new ArrayList<>(0);
     public Context context = FriendsListFragment.context;
 
@@ -45,7 +47,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                EventBus bus = new EventBus();
+                bus = new EventBus();
                 bus.post(new FriendClickEvent(userId));
             }
         });
