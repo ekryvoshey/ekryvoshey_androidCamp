@@ -25,7 +25,6 @@ import example.com.androidcampproject.R;
  * Created by Esmond on 15.07.2015.
  */
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder>{
-    private View view;
     EventBus bus;
     private List<Friend> friends = new ArrayList<>(0);
     public Context context = FriendsListFragment.context;
@@ -36,7 +35,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
         FriendViewHolder pvh = new FriendViewHolder(view);
         return pvh;
     }
@@ -44,7 +43,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int i) {
         final long userId = friends.get(i).getUser_id();
-        view.setOnClickListener(new View.OnClickListener() {
+        holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 bus = new EventBus();
