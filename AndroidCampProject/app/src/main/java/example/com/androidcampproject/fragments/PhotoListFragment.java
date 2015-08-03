@@ -14,20 +14,23 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.Album;
+import example.com.androidcampproject.Photo;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.AlbumListAdapter;
+import example.com.androidcampproject.adapters.PhotoListAdapter;
 import example.com.androidcampproject.events.LoadAlbumsListFragmentEvent;
+import example.com.androidcampproject.events.LoadPhotoListFragmentEvent;
 import example.com.androidcampproject.responses.AlbumsListResponse;
+import example.com.androidcampproject.responses.PhotoListResponse;
 
 /**
- * Created by Esmond on 02.08.2015.
+ * Created by Esmond on 03.08.2015.
  */
-public class AlbumListFragment extends Fragment {
-    private List<Album> albums;
+public class PhotoListFragment extends Fragment {
+    private List<Photo> photos;
     private RecyclerView recyclerView;
-    private AlbumListAdapter rvAdapter;
-    public static Context albumListFragmentContext;
+    private PhotoListAdapter rvAdapter;
+    public static Context photoListFragmentContext;
 
     @Override
     public void onAttach(Activity activity) {
@@ -44,21 +47,21 @@ public class AlbumListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        EventBus.getDefault().post(new LoadAlbumsListFragmentEvent());
+//        EventBus.getDefault().post(new LoadPhotoListFragmentEvent());
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.grid_layout, container, false);
-        albumListFragmentContext = view.getContext();
+        photoListFragmentContext = view.getContext();
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(
                 2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView = (RecyclerView)view.findViewById(R.id.gridView);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         initializeAdapter();
-        rvAdapter = new AlbumListAdapter(albums);
+        rvAdapter = new PhotoListAdapter(photos);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(gridLayoutManager);
 
@@ -66,11 +69,11 @@ public class AlbumListFragment extends Fragment {
     }
 
     public void initializeAdapter(){
-        AlbumListAdapter adapter = new AlbumListAdapter(albums);
+        PhotoListAdapter adapter = new PhotoListAdapter(photos);
         recyclerView.setAdapter(adapter);
     }
 
-    public void onEvent(AlbumsListResponse event){
+    public void onEvent(PhotoListResponse event){
         rvAdapter.setData(event.getResponse());
         rvAdapter.notifyDataSetChanged();
     }

@@ -18,19 +18,18 @@ import example.com.androidcampproject.Friend;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.FriendsListAdapter;
 import example.com.androidcampproject.responses.FriendsListResponse;
-import example.com.androidcampproject.events.LoadFriendsListEvent;
+import example.com.androidcampproject.events.LoadFriendsListFragmentEvent;
 
 /**
  * Created by Esmond on 15.07.2015.
  */
 public class FriendsListFragment extends Fragment {
 
-    RecyclerView recyclerView;
-    RecyclerView.LayoutManager layoutManager;
-    FriendsListAdapter rvAdapter;
-    List<Friend> friends;
+    private RecyclerView recyclerView;
+    private FriendsListAdapter rvAdapter;
+    private List<Friend> friends;
 
-    public static Context context;
+    public static Context friendListFragmentContext;
 
     @Override
     public void onAttach(Activity activity) {
@@ -47,7 +46,7 @@ public class FriendsListFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EventBus.getDefault().post(new LoadFriendsListEvent());
+        EventBus.getDefault().post(new LoadFriendsListFragmentEvent());
     }
 
     @Nullable
@@ -55,12 +54,11 @@ public class FriendsListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.friends_list_layout, container, false);
-        context = view.getContext();
+        friendListFragmentContext = view.getContext();
         recyclerView = (RecyclerView) view.findViewById(R.id.friendsList);
-        layoutManager = new LinearLayoutManager(getActivity());
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
 
         initializeAdapter();
-
         rvAdapter = new FriendsListAdapter(friends);
         recyclerView.setAdapter(rvAdapter);
         recyclerView.setLayoutManager(layoutManager);

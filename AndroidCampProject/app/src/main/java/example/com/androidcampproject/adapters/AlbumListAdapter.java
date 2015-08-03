@@ -6,37 +6,53 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.Album;
-import example.com.androidcampproject.fragments.FriendsListFragment;
 import example.com.androidcampproject.R;
+import example.com.androidcampproject.events.AlbumClickEvent;
+import example.com.androidcampproject.events.FriendClickEvent;
+import example.com.androidcampproject.fragments.AlbumListFragment;
 
 /**
- * Created by Esmond on 30.07.2015.
+ * Created by Esmond on 02.08.2015.
  */
-public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>{
-    Context context = FriendsListFragment.context;
-    List<Album> albums = new ArrayList<>(0);
+public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder> {
+    private List<Album> albums = new ArrayList<>(0);
+    public Context context = AlbumListFragment.albumListFragmentContext;
+
     public AlbumListAdapter(List<Album> albums){
         this.albums = albums;
     }
 
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).
+                inflate(R.layout.grid_item_layout, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }
 
+    @Override
     public void onBindViewHolder(AlbumViewHolder holder, int i){
+        final long ownerId = albums.get(i).getOwner_id();
+        final long albumId = albums.get(i).getAid();
+        holder.imageView.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                EventBus.getDefault().post(new AlbumClickEvent(ownerId, albumId));
+            }
+        });
+        holder.textView.setText(albums.get(i).getTitle());
         Glide.with(context)
-                .load(albums.get(i).getThumb_id())
-                .into(holder.album);
+                .load(albums.get(i).getThumb_src())
+                .into(holder.imageView);
     }
 
     @Override
@@ -50,16 +66,18 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
         return albums.size();
     }
 
-    public void setData(List<Album> albums){
-        this.albums = albums;
-    }
-
     public static class AlbumViewHolder extends RecyclerView.ViewHolder{
-        ImageView album;
+        TextView textView;
+        ImageView imageView;
 
         AlbumViewHolder(View itemView){
             super(itemView);
-            album = (ImageView)itemView.findViewById(R.id.person_photo);
+            textView = (TextView)itemView.findViewById(R.id.gridText);
+            imageView = (ImageView)itemView.findViewById(R.id.gridImage);
         }
+    }
+
+    public void setData(List<Album> albums){
+        this.albums = albums;
     }
 }

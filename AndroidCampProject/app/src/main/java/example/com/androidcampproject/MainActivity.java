@@ -7,23 +7,22 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 
-
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.events.UserSignedInEvent;
 import example.com.androidcampproject.fragments.AlbumListFragment;
 import example.com.androidcampproject.fragments.FriendsListFragment;
+import example.com.androidcampproject.fragments.PhotoListFragment;
 import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
-
-    private static EventBus bus = EventBus.getDefault();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        bus.register(this);
+        EventBus.getDefault().register(this);
 
         FragmentManager fmOnCreate = getFragmentManager();
         FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
@@ -31,31 +30,42 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPref.getString(MyUtilities.TOKEN_KEY, "");
         if(token.equals("")){
-            ftOnCreate.replace(R.id.listFragment, new WebViewClientFragment());
+            ftOnCreate.replace(R.id.container, new WebViewClientFragment());
             ftOnCreate.commit();
         } else {
-            ftOnCreate.replace(R.id.listFragment, new FriendsListFragment());
+            ftOnCreate.replace(R.id.container, new FriendsListFragment());
             ftOnCreate.commit();
         }
+//        ftOnCreate.replace(R.id.listFragment, new AlbumListFragment());
     }
 
     public void onEvent(UserSignedInEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.listFragment, new FriendsListFragment());
+        fTransaction.replace(R.id.container, new FriendsListFragment());
+        fTransaction.addToBackStack(null);
         fTransaction.commit();
     }
 
-    public void onEvent(FriendClickEvent event){
+    public void onEvent(FriendClickEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.listFragment, AlbumListFragment.newInstance(event.getLong()));
+        fTransaction.replace(R.id.container, new AlbumListFragment());
+        fTransaction.addToBackStack(null);
+        fTransaction.commit();
+    }
+
+    public void onEvent(AlbumClickEvent event) {
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.replace(R.id.container, new PhotoListFragment());
+        fTransaction.addToBackStack(null);
         fTransaction.commit();
     }
 
     @Override
     protected void onDestroy() {
-        bus.unregister(this);
+        EventBus.getDefault().unregister(this);
         super.onDestroy();
     }
 }

@@ -5,41 +5,41 @@ package example.com.androidcampproject;
  */
 public class Photo {
 
-    long photoId;
-    long albumId;
-    long ownerId;
+    long pid;
+    long aid;
+    long owner_id;
     String src;
-    String srcBig;
-    String srcSmall;
-    String srcXBig;
-    String srcXXBig;
+    String src_big;
+    String src_small;
+    String src_xbig;
+    String src_xxbig;
     int width;
     int height;
     String text;
     long created;
 
     public long getPhotoId() {
-        return photoId;
+        return pid;
     }
 
     public void setPhotoId(long photoId) {
-        this.photoId = photoId;
+        this.pid = photoId;
     }
 
-    public long getAlbumId() {
-        return albumId;
+    public long getAid() {
+        return aid;
     }
 
-    public void setAlbumId(long albumId) {
-        this.albumId = albumId;
+    public void setAid(long aid) {
+        this.aid = aid;
     }
 
-    public long getOwnerId() {
-        return ownerId;
+    public long getOwner_id() {
+        return owner_id;
     }
 
-    public void setOwnerId(long ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner_id(long owner_id) {
+        this.owner_id = owner_id;
     }
 
     public String getSrc() {
@@ -50,36 +50,36 @@ public class Photo {
         this.src = src;
     }
 
-    public String getSrcBig() {
-        return srcBig;
+    public String getSrc_big() {
+        return src_big;
     }
 
-    public void setSrcBig(String srcBig) {
-        this.srcBig = srcBig;
+    public void setSrc_big(String src_big) {
+        this.src_big = src_big;
     }
 
-    public String getSrcSmall() {
-        return srcSmall;
+    public String getSrc_small() {
+        return src_small;
     }
 
-    public void setSrcSmall(String srcSmall) {
-        this.srcSmall = srcSmall;
+    public void setSrc_small(String src_small) {
+        this.src_small = src_small;
     }
 
-    public String getSrcXBig() {
-        return srcXBig;
+    public String getSrc_xbig() {
+        return src_xbig;
     }
 
-    public void setSrcXBig(String srcXBig) {
-        this.srcXBig = srcXBig;
+    public void setSrc_xbig(String src_xbig) {
+        this.src_xbig = src_xbig;
     }
 
-    public String getSrcXXBig() {
-        return srcXXBig;
+    public String getSrc_xxbig() {
+        return src_xxbig;
     }
 
-    public void setSrcXXBig(String srcXXBig) {
-        this.srcXXBig = srcXXBig;
+    public void setSrc_xxbig(String src_xxbig) {
+        this.src_xxbig = src_xxbig;
     }
 
     public int getWidth() {

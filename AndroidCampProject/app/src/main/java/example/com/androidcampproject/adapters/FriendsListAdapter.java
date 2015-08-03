@@ -1,7 +1,6 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,9 +24,8 @@ import example.com.androidcampproject.R;
  * Created by Esmond on 15.07.2015.
  */
 public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder>{
-    EventBus bus;
-    private List<Friend> friends = new ArrayList<>(0);
-    public Context context = FriendsListFragment.context;
+    public List<Friend> friends = new ArrayList<>(0);
+    public Context context = FriendsListFragment.friendListFragmentContext;
 
     public FriendsListAdapter(List<Friend> friends){
         this.friends = friends;
@@ -35,7 +33,8 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.card_view_layout, viewGroup, false);
+        View view = LayoutInflater.from(viewGroup.getContext()).
+                inflate(R.layout.card_view_layout, viewGroup, false);
         FriendViewHolder pvh = new FriendViewHolder(view);
         return pvh;
     }
@@ -46,8 +45,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         holder.cv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                bus = new EventBus();
-                bus.post(new FriendClickEvent(userId));
+                EventBus.getDefault().post(new FriendClickEvent(userId));
             }
         });
         holder.firstName.setText(friends.get(i).getFirst_name());

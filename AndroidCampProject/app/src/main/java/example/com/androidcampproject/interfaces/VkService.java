@@ -16,8 +16,8 @@ public interface VkService {
     void getFriendsList(@Query("user_id") String userId, @Query("fields") String photo, Callback<FriendsListResponse> cb);
 
     @GET("/method/photos.getAlbums")
-    void getPhotoAlbum(@Query("owner_id") String ownerId, @Query("need_covers") int needCoversFlag, Callback<AlbumsListResponse> cb);
+    void getPhotoAlbum(@Query("owner_id") long ownerId, @Query("need_covers") int needCoversFlag, Callback<AlbumsListResponse> cb);
 
-    @GET("/method/{id}/photos.get")
-    void getPhoto(@Query("owner_id") String ownerId, @Query("album_id") String albumId, Callback<PhotoListResponse> cb);
+    @GET("/method/photos.get")
+    void getPhoto(@Query("owner_id") long ownerId, @Query("album_id") long albumId, Callback<PhotoListResponse> cb);
 }

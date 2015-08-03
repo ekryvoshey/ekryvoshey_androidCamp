@@ -13,7 +13,7 @@ public class FriendClickEvent {
         this.userId = userId;
     }
 
-    public long getLong() {
+    public long getFriendId() {
         return userId;
     }
 }
