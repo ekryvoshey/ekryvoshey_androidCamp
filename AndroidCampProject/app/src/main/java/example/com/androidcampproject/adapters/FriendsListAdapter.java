@@ -34,7 +34,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public FriendViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.card_view_layout, viewGroup, false);
+                inflate(R.layout.friends_card_view_layout, viewGroup, false);
         FriendViewHolder pvh = new FriendViewHolder(view);
         return pvh;
     }
@@ -74,7 +74,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
         FriendViewHolder(View itemView){
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cv);
+            cv = (CardView) itemView.findViewById(R.id.cvFriends);
             firstName = (TextView)itemView.findViewById(R.id.person_name);
             lastName = (TextView)itemView.findViewById(R.id.person_last_name);
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
