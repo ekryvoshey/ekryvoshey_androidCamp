@@ -5,4 +5,9 @@
         <!-- Customize your theme here. -->
     </style>
 
+    <style name="AppTheme.Base" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:colorPrimary">@color/blue</item>
+        <item name="android:color">@color/darkblue</item>
+        <item name="android:colorAccent">@color/darkorange</item>
+    </style>
 </resources>
