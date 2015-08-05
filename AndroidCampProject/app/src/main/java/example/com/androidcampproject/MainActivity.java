@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.events.AlbumClickEvent;
@@ -42,25 +43,34 @@ public class MainActivity extends AppCompatActivity {
     public void onEvent(UserSignedInEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.container, new FriendsListFragment());
-        fTransaction.addToBackStack(null);
+        fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
+        fTransaction.addToBackStack("FriendsListFragment");
         fTransaction.commit();
     }
 
     public void onEvent(FriendClickEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.container, new AlbumListFragment());
-        fTransaction.addToBackStack(null);
+        fTransaction.add(R.id.container, new AlbumListFragment(), "AlbumListFragment");
+        fTransaction.addToBackStack("AlbumListFragment");
         fTransaction.commit();
     }
 
     public void onEvent(AlbumClickEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.replace(R.id.container, new PhotoListFragment());
-        fTransaction.addToBackStack(null);
+        fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
+        fTransaction.addToBackStack("PhotoListFragment");
         fTransaction.commit();
+    }
+
+    @Override
+    public void onBackPressed(){
+        FragmentManager fManager = getFragmentManager();
+        if(fManager.getBackStackEntryCount()>0) {
+            fManager.popBackStack();
+        }
+        else super.onBackPressed();
     }
 
     @Override

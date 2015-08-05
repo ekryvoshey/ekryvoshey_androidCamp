@@ -17,7 +17,6 @@ import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.AlbumListAdapter;
-import example.com.androidcampproject.events.LoadAlbumsListFragmentEvent;
 import example.com.androidcampproject.responses.AlbumsListResponse;
 
 /**
