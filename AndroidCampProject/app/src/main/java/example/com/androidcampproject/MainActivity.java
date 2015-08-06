@@ -24,7 +24,7 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
 import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
-
+    public static Toolbar mActionBarToolbar;
     ShareActionProvider mShareActionProvider;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
 
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.app_bar);
+        mActionBarToolbar = (Toolbar) findViewById(R.id.app_bar);
         setSupportActionBar(mActionBarToolbar);
 
         FragmentManager fmOnCreate = getFragmentManager();
