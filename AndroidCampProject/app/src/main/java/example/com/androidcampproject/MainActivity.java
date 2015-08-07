@@ -9,7 +9,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.ShareActionProvider;
@@ -24,8 +23,8 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
 import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
-    public static Toolbar mActionBarToolbar;
-    ShareActionProvider mShareActionProvider;
+    private ShareActionProvider mShareActionProvider;
+    public static Toolbar toolbar;
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
@@ -40,11 +39,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
 
-        mActionBarToolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(mActionBarToolbar);
-
         FragmentManager fmOnCreate = getFragmentManager();
         FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
+        initToolbar();
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPref.getString(MyUtilities.TOKEN_KEY, "");
@@ -96,6 +93,13 @@ public class MainActivity extends AppCompatActivity {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
         }
+    }
+
+    public void initToolbar(){
+        toolbar = (Toolbar) findViewById(R.id.toolBar);
+        setSupportActionBar(toolbar);
+        setTitle(getString(R.string.appName));
+        toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
 
     @Override

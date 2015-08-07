@@ -1,10 +1,7 @@
 package example.com.androidcampproject.adapters;
 
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,13 +16,9 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.Album;
 import example.com.androidcampproject.MainActivity;
 import example.com.androidcampproject.Photo;
 import example.com.androidcampproject.R;
-import example.com.androidcampproject.events.FriendClickEvent;
-import example.com.androidcampproject.events.PhotoClickEvent;
 import example.com.androidcampproject.fragments.PhotoListFragment;
 
 /**
@@ -34,7 +27,7 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder> {
 
     private List<Photo> photos = new ArrayList<>(0);
-    private Toolbar toolbar = MainActivity.mActionBarToolbar;
+    private Toolbar toolbar = MainActivity.toolbar;
     private static final int TOOLBAR_ANIMATION_SPEED = 500;
 
     public Context context = PhotoListFragment.photoListFragmentContext;

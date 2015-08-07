@@ -2,5 +2,6 @@
     <string name="app_name">Android Camp Project</string>
 
     <string name="hello_world">Hello world!</string>
+    <string name="appName">Android summer camp</string>
     <string name="action_settings">Settings</string>
 </resources>
