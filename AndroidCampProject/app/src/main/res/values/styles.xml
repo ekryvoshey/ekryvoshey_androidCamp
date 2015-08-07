@@ -2,9 +2,13 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="windowActionBar">false</item>
-        <item name="android:color">@color/darkblue</item>
-        <item name="android:colorPrimary">@color/blue</item>
-        <item name="android:colorAccent">@color/darkorange</item>
+        <item name="android:color">@drawable/toolbar_gradient</item>
+    </style>
+
+    <style name="Toolbar" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="android:textColorPrimary">@android:color/white</item>
+        <item name="actionMenuTextColor">@android:color/white</item>
+        <item name="android:textColorSecondary">@android:color/white</item>
     </style>
 
 </resources>
