@@ -6,4 +6,5 @@ package example.com.androidcampproject;
 public class MyUtilities {
     public static final String TOKEN_KEY = "token_key";
     public static final String USER_KEY = "userKey";
+    public static final int TOOLBAR_ANIMATION_SPEED = 500;
 }

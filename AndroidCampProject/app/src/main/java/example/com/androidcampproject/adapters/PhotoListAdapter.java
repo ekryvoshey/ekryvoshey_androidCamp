@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import example.com.androidcampproject.MainActivity;
+import example.com.androidcampproject.MyUtilities;
 import example.com.androidcampproject.Photo;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.fragments.PhotoListFragment;
@@ -28,7 +29,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
 
     private List<Photo> photos = new ArrayList<>(0);
     private Toolbar toolbar = MainActivity.toolbar;
-    private static final int TOOLBAR_ANIMATION_SPEED = 500;
 
     public Context context = PhotoListFragment.photoListFragmentContext;
 
@@ -50,15 +50,26 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
             @Override
             public void onClick(View v) {
                 if (toolbar.getTranslationY() == 0)
-                    toolbarHide(toolbar, TOOLBAR_ANIMATION_SPEED);
+                    toolbarHide(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
                 if (toolbar.getTranslationY() != 0)
-                    toolbarShow(toolbar, TOOLBAR_ANIMATION_SPEED);
+                    toolbarShow(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
             }
         });
         holder.textView.setText(photos.get(i).getText());
         Glide.with(context).
                 load(photos.get(i).getSrc()).
                 into(holder.imageView);
+    }
+
+    @Override
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    @Override
+    public int getItemCount() {
+        if (photos == null) return 0;
+        return photos.size();
     }
 
     public void toolbarHide(Toolbar toolbar, int duration) {
@@ -75,17 +86,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
                 .setDuration(duration)
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
-    }
-
-    @Override
-    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
-        super.onAttachedToRecyclerView(recyclerView);
-    }
-
-    @Override
-    public int getItemCount() {
-        if (photos == null) return 0;
-        return photos.size();
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {

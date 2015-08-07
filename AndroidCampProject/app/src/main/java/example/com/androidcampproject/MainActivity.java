@@ -6,12 +6,15 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.ShareActionProvider;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.DecelerateInterpolator;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.events.AlbumClickEvent;
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fManager = getFragmentManager();
         if(fManager.getBackStackEntryCount()>0) {
             fManager.popBackStack();
+            toolbarShow(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
         }
         else super.onBackPressed();
     }
@@ -100,6 +104,22 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         setTitle(getString(R.string.appName));
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
+    }
+
+    public void toolbarHide(Toolbar toolbar, int duration) {
+        toolbar.animate()
+                .translationY(-toolbar.getBottom())
+                .setDuration(duration)
+                .setInterpolator(new AccelerateInterpolator())
+                .start();
+    }
+
+    public void toolbarShow(Toolbar toolbar, int duration) {
+        toolbar.animate()
+                .translationY(0)
+                .setDuration(duration)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
     }
 
     @Override
