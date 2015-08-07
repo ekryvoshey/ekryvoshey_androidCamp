@@ -1,5 +1,7 @@
 package example.com.androidcampproject.adapters;
 
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -30,9 +32,12 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
  * Created by Esmond on 03.08.2015.
  */
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder> {
+
     private List<Photo> photos = new ArrayList<>(0);
-    public Context context = PhotoListFragment.photoListFragmentContext;
     private Toolbar toolbar = MainActivity.mActionBarToolbar;
+    private static final int TOOLBAR_ANIMATION_SPEED = 500;
+
+    public Context context = PhotoListFragment.photoListFragmentContext;
 
     public PhotoListAdapter(List<Photo> photos) {
         this.photos = photos;
@@ -51,15 +56,32 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                toolbar.animate()
-                        .translationY(-toolbar.getBottom())
-                        .setInterpolator(new AccelerateInterpolator()).start();
+                if (toolbar.getTranslationY() == 0)
+                    toolbarHide(toolbar, TOOLBAR_ANIMATION_SPEED);
+                if (toolbar.getTranslationY() != 0)
+                    toolbarShow(toolbar, TOOLBAR_ANIMATION_SPEED);
             }
         });
         holder.textView.setText(photos.get(i).getText());
         Glide.with(context).
                 load(photos.get(i).getSrc()).
                 into(holder.imageView);
+    }
+
+    public void toolbarHide(Toolbar toolbar, int duration) {
+        toolbar.animate()
+                .translationY(-toolbar.getBottom())
+                .setDuration(duration)
+                .setInterpolator(new AccelerateInterpolator())
+                .start();
+    }
+
+    public void toolbarShow(Toolbar toolbar, int duration) {
+        toolbar.animate()
+                .translationY(0)
+                .setDuration(duration)
+                .setInterpolator(new DecelerateInterpolator())
+                .start();
     }
 
     @Override
@@ -87,4 +109,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     public void setData(List<Photo> photos) {
         this.photos = photos;
     }
+
+
 }
