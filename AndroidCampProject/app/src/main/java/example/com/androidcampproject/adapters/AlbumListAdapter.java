@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.Album;
+import example.com.androidcampproject.objects.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.fragments.AlbumListFragment;

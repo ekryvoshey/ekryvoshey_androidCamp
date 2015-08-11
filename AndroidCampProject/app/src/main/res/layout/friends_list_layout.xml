@@ -11,6 +11,7 @@
         android:id="@+id/friends_list"
         android:paddingTop="?attr/actionBarSize"
         android:clipToPadding="false"
+        android:background="#f1f1f1"
         />
 
 </LinearLayout>

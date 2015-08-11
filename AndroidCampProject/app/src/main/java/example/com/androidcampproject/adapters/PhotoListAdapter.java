@@ -1,6 +1,8 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,9 +18,12 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
-import example.com.androidcampproject.MainActivity;
+import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.activities.DetailsActivity;
+import example.com.androidcampproject.activities.MainActivity;
 import example.com.androidcampproject.MyUtilities;
-import example.com.androidcampproject.Photo;
+import example.com.androidcampproject.events.PhotoClickEvent;
+import example.com.androidcampproject.objects.Photo;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.fragments.PhotoListFragment;
 
@@ -31,7 +36,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     private Toolbar toolbar = MainActivity.toolbar;
 
     public Context context = PhotoListFragment.photoListFragmentContext;
-
     public PhotoListAdapter(List<Photo> photos) {
         this.photos = photos;
     }
@@ -45,10 +49,13 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     }
 
     @Override
-    public void onBindViewHolder(PhotoViewHolder holder, int i) {
+    public void onBindViewHolder(PhotoViewHolder holder, final int i) {
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String src = photos.get(i).getSrc_xxbig();
+                String text = photos.get(i).getText();
+                EventBus.getDefault().post(new PhotoClickEvent(src, text));
                 if (toolbar.getTranslationY() == 0)
                     toolbarHide(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
                 if (toolbar.getTranslationY() != 0)

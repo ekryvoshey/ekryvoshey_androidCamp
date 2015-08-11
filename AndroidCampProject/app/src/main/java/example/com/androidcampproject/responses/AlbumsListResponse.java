@@ -2,7 +2,7 @@ package example.com.androidcampproject.responses;
 
 import java.util.List;
 
-import example.com.androidcampproject.Album;
+import example.com.androidcampproject.objects.Album;
 
 /**
  * Created by Esmond on 29.07.2015.

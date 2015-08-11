@@ -14,7 +14,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.Friend;
+import example.com.androidcampproject.objects.Friend;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.FriendsListAdapter;
 import example.com.androidcampproject.responses.FriendsListResponse;

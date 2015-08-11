@@ -1,4 +1,4 @@
-package example.com.androidcampproject;
+package example.com.androidcampproject.objects;
 
 /**
  * Created by Esmond on 21.07.2015.

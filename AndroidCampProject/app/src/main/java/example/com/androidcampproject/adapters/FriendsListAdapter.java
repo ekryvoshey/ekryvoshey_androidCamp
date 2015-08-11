@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.Friend;
+import example.com.androidcampproject.objects.Friend;
 import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.fragments.FriendsListFragment;
 import example.com.androidcampproject.R;

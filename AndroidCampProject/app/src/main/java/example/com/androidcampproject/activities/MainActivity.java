@@ -1,7 +1,8 @@
-package example.com.androidcampproject;
+package example.com.androidcampproject.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,8 +18,11 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.MyUtilities;
+import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.events.FriendClickEvent;
+import example.com.androidcampproject.events.PhotoClickEvent;
 import example.com.androidcampproject.events.UserSignedInEvent;
 import example.com.androidcampproject.fragments.AlbumListFragment;
 import example.com.androidcampproject.fragments.FriendsListFragment;
@@ -28,11 +32,13 @@ import example.com.androidcampproject.fragments.WebViewClientFragment;
 public class MainActivity extends AppCompatActivity {
     private ShareActionProvider mShareActionProvider;
     public static Toolbar toolbar;
+    public static Context mainActivityContext;
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem shareItem = menu.findItem(R.id.menu_item_share);
-        mShareActionProvider = (ShareActionProvider)MenuItemCompat.getActionProvider(shareItem);
+        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         return true;
     }
 
@@ -48,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         String token = sharedPref.getString(MyUtilities.TOKEN_KEY, "");
-        if(token.equals("")){
+        if (token.equals("")) {
             ftOnCreate.replace(R.id.container, new WebViewClientFragment());
             ftOnCreate.commit();
         } else {
@@ -82,14 +88,20 @@ public class MainActivity extends AppCompatActivity {
         fTransaction.commit();
     }
 
+    public void onEvent(PhotoClickEvent event){
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        intent.putExtra("image", event.getSrc());
+        intent.putExtra("text", event.getText());
+        startActivity(intent);
+    }
+
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         FragmentManager fManager = getFragmentManager();
-        if(fManager.getBackStackEntryCount()>0) {
+        if (fManager.getBackStackEntryCount() > 0) {
             fManager.popBackStack();
             toolbarShow(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
-        }
-        else super.onBackPressed();
+        } else super.onBackPressed();
     }
 
     //Use this method to share items
@@ -99,7 +111,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void initToolbar(){
+    public void initToolbar() {
         toolbar = (Toolbar) findViewById(R.id.toolBar);
         setSupportActionBar(toolbar);
         this.getSupportActionBar().setDisplayShowTitleEnabled(false);
