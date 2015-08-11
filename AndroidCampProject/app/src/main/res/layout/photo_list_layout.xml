@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<GridLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <android.support.v7.widget.RecyclerView
+    <example.com.androidcampproject.AutofitRecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/photo_list"
+        android:columnWidth="250dp"
         android:paddingTop="?attr/actionBarSize"
         android:clipToPadding="false"
         android:background="#f1f1f1"
         />
 
-</LinearLayout>
+</GridLayout>

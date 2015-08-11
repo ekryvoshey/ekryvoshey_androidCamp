@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.AutofitRecyclerView;
 import example.com.androidcampproject.Photo;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.PhotoListAdapter;
@@ -24,7 +25,7 @@ import example.com.androidcampproject.responses.PhotoListResponse;
  */
 public class PhotoListFragment extends Fragment {
     private List<Photo> photos;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private PhotoListAdapter rvAdapter;
     public static Context photoListFragmentContext;
 
@@ -53,13 +54,11 @@ public class PhotoListFragment extends Fragment {
         photoListFragmentContext = view.getContext();
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(
                 3, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView = (RecyclerView)view.findViewById(R.id.photo_list);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView = (AutofitRecyclerView)view.findViewById(R.id.photo_list);
 
         initializeAdapter();
         rvAdapter = new PhotoListAdapter(photos);
         recyclerView.setAdapter(rvAdapter);
-        recyclerView.setLayoutManager(gridLayoutManager);
 
         return view;
     }

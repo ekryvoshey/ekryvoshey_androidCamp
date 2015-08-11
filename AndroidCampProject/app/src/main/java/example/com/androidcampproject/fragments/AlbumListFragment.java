@@ -3,10 +3,12 @@ package example.com.androidcampproject.fragments;
 import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +17,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.Album;
+import example.com.androidcampproject.AutofitRecyclerView;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.AlbumListAdapter;
 import example.com.androidcampproject.responses.AlbumsListResponse;
@@ -24,7 +27,7 @@ import example.com.androidcampproject.responses.AlbumsListResponse;
  */
 public class AlbumListFragment extends Fragment {
     private List<Album> albums;
-    private RecyclerView recyclerView;
+    private AutofitRecyclerView recyclerView;
     private AlbumListAdapter rvAdapter;
     public static Context albumListFragmentContext;
 
@@ -53,13 +56,11 @@ public class AlbumListFragment extends Fragment {
         albumListFragmentContext = view.getContext();
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(
                 3, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView = (RecyclerView)view.findViewById(R.id.albums_list);
-        recyclerView.setLayoutManager(gridLayoutManager);
+        recyclerView = (AutofitRecyclerView)view.findViewById(R.id.album_list);
 
         initializeAdapter();
         rvAdapter = new AlbumListAdapter(albums);
         recyclerView.setAdapter(rvAdapter);
-        recyclerView.setLayoutManager(gridLayoutManager);
 
         return view;
     }
