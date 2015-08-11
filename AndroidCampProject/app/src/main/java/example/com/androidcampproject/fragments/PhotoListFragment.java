@@ -16,11 +16,7 @@ import java.util.List;
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.Photo;
 import example.com.androidcampproject.R;
-import example.com.androidcampproject.adapters.AlbumListAdapter;
 import example.com.androidcampproject.adapters.PhotoListAdapter;
-import example.com.androidcampproject.events.LoadAlbumsListFragmentEvent;
-import example.com.androidcampproject.events.LoadPhotoListFragmentEvent;
-import example.com.androidcampproject.responses.AlbumsListResponse;
 import example.com.androidcampproject.responses.PhotoListResponse;
 
 /**
@@ -53,11 +49,11 @@ public class PhotoListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        View view = inflater.inflate(R.layout.grid_layout, container, false);
+        View view = inflater.inflate(R.layout.photo_list_layout, container, false);
         photoListFragmentContext = view.getContext();
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(
-                2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView = (RecyclerView)view.findViewById(R.id.gridView);
+                3, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView = (RecyclerView)view.findViewById(R.id.photo_list);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         initializeAdapter();

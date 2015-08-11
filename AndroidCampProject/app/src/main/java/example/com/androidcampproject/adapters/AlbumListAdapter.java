@@ -17,7 +17,6 @@ import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
-import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.fragments.AlbumListFragment;
 
 /**
@@ -34,7 +33,7 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.grid_item_layout, viewGroup, false);
+                inflate(R.layout.albums_card_view_layout, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }
@@ -72,8 +71,8 @@ public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.Albu
 
         AlbumViewHolder(View itemView){
             super(itemView);
-            textView = (TextView)itemView.findViewById(R.id.gridText);
-            imageView = (ImageView)itemView.findViewById(R.id.gridImage);
+            textView = (TextView)itemView.findViewById(R.id.album_name);
+            imageView = (ImageView)itemView.findViewById(R.id.album_image);
         }
     }
 

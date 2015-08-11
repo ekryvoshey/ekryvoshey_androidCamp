@@ -74,7 +74,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
         FriendViewHolder(View itemView){
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.cvFriends);
+            cv = (CardView) itemView.findViewById(R.id.friends_card_view);
             firstName = (TextView)itemView.findViewById(R.id.person_name);
             lastName = (TextView)itemView.findViewById(R.id.person_last_name);
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);

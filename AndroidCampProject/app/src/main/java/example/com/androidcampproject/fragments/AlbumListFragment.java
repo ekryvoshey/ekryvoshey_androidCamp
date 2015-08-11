@@ -49,11 +49,11 @@ public class AlbumListFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.grid_layout, container, false);
+        View view = inflater.inflate(R.layout.albums_list_layout, container, false);
         albumListFragmentContext = view.getContext();
         StaggeredGridLayoutManager gridLayoutManager = new StaggeredGridLayoutManager(
-                2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView = (RecyclerView)view.findViewById(R.id.gridView);
+                3, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView = (RecyclerView)view.findViewById(R.id.albums_list);
         recyclerView.setLayoutManager(gridLayoutManager);
 
         initializeAdapter();

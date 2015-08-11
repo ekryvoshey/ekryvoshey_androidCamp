@@ -39,7 +39,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.grid_item_layout, viewGroup, false);
+                inflate(R.layout.photo_card_view_layout, viewGroup, false);
         PhotoViewHolder pvh = new PhotoViewHolder(view);
         return pvh;
     }
@@ -94,8 +94,8 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
 
         PhotoViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.gridText);
-            imageView = (ImageView) itemView.findViewById(R.id.gridImage);
+            textView = (TextView) itemView.findViewById(R.id.photo_name);
+            imageView = (ImageView) itemView.findViewById(R.id.photo_image);
         }
     }
 
