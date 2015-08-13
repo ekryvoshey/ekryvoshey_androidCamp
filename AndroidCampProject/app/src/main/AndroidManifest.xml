@@ -25,11 +25,7 @@
             android:name=".activities.DetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Details activity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

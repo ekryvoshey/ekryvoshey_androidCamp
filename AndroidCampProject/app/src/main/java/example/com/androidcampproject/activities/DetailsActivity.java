@@ -34,6 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.details_activity);
+        overridePendingTransition(R.animator.activity_open_translate, R.animator.activity_close_scale);
 
         String title = getIntent().getStringExtra("title");
         String image = getIntent().getStringExtra("image");
@@ -45,13 +46,9 @@ public class DetailsActivity extends AppCompatActivity {
         Glide.with(this).load(image).into(imageView);
     }
 
-    public static Drawable LoadImageFromWebOperations(String url) {
-        try {
-            InputStream is = (InputStream) new URL(url).getContent();
-            Drawable d = Drawable.createFromStream(is, "src name");
-            return d;
-        } catch (Exception e) {
-            return null;
-        }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.animator.activity_open_scale, R.animator.activity_close_translate);
     }
 }

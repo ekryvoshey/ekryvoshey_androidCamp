@@ -53,7 +53,7 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
         holder.imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String src = photos.get(i).getSrc_xxbig();
+                String src = photos.get(i).getSrc_big();
                 String text = photos.get(i).getText();
                 EventBus.getDefault().post(new PhotoClickEvent(src, text));
                 if (toolbar.getTranslationY() == 0)

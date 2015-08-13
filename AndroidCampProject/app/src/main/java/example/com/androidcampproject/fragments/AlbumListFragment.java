@@ -38,6 +38,7 @@ public class AlbumListFragment extends Fragment {
     public void onDetach() {
         EventBus.getDefault().unregister(this);
         super.onDetach();
+
     }
 
     @Override

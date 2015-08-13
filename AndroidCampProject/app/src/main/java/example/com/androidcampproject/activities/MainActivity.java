@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         EventBus.getDefault().register(this);
+        overridePendingTransition(R.animator.activity_open_translate, R.animator.activity_close_scale);
 
         FragmentManager fmOnCreate = getFragmentManager();
         FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
@@ -61,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             ftOnCreate.replace(R.id.container, new FriendsListFragment());
             ftOnCreate.commit();
         }
-//        ftOnCreate.replace(R.id.listFragment, new AlbumListFragment());
     }
 
     public void onEvent(UserSignedInEvent event) {
@@ -88,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         fTransaction.commit();
     }
 
-    public void onEvent(PhotoClickEvent event){
+    public void onEvent(PhotoClickEvent event) {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
         intent.putExtra("image", event.getSrc());
         intent.putExtra("text", event.getText());
@@ -133,6 +133,12 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(duration)
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(R.animator.activity_open_scale, R.animator.activity_close_translate);
     }
 
     @Override
