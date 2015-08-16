@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.support.v7.widget.ShareActionProvider;
@@ -31,8 +32,9 @@ import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
     private ShareActionProvider mShareActionProvider;
+    private DisplayMetrics displayMetrics = new DisplayMetrics();
     public static Toolbar toolbar;
-    public static Context mainActivityContext;
+    public static String fragmentTag = "phone";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,43 +51,43 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         overridePendingTransition(R.animator.activity_open_translate, R.animator.activity_close_scale);
 
-        FragmentManager fmOnCreate = getFragmentManager();
-        FragmentTransaction ftOnCreate = fmOnCreate.beginTransaction();
         initToolbar();
 
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-        String token = sharedPref.getString(MyUtilities.TOKEN_KEY, "");
-        if (token.equals("")) {
-            ftOnCreate.replace(R.id.container, new WebViewClientFragment());
-            ftOnCreate.commit();
-        } else {
-            ftOnCreate.replace(R.id.container, new FriendsListFragment());
-            ftOnCreate.commit();
-        }
-    }
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int width = displayMetrics.widthPixels;
+        Fragment fragmentTwo = getSupportFragmentManager().findFragmentById(R.id.containerTwo);
+        if (fragmentTwo == null && width > 768)
+            fragmentTag = "tablet";
+        if(width <= 768 )
+            fragmentTag = "phone";
 
-    public void onEvent(UserSignedInEvent event) {
-        FragmentManager fManager = getFragmentManager();
-        FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
-        fTransaction.addToBackStack("FriendsListFragment");
-        fTransaction.commit();
+        loadFriendsList();
     }
 
     public void onEvent(FriendClickEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.container, new AlbumListFragment(), "AlbumListFragment");
-        fTransaction.addToBackStack("AlbumListFragment");
-        fTransaction.commit();
+        if (fragmentTag == "phone") {
+            fTransaction.add(R.id.container, new AlbumListFragment(), "AlbumListFragment");
+            fTransaction.addToBackStack("AlbumListFragment");
+            fTransaction.commit();
+        }
+        if (fragmentTag == "tablet") {
+            addAlbumListAsSecondFragment();
+        }
     }
 
     public void onEvent(AlbumClickEvent event) {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
-        fTransaction.addToBackStack("PhotoListFragment");
-        fTransaction.commit();
+        if (fragmentTag == "phone") {
+            fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
+            fTransaction.addToBackStack("PhotoListFragment");
+            fTransaction.commit();
+        }
+        if (fragmentTag == "tablet") {
+            addPhotoListAsSecondFragment();
+        }
     }
 
     public void onEvent(PhotoClickEvent event) {
@@ -100,11 +102,9 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager fManager = getFragmentManager();
         if (fManager.getBackStackEntryCount() > 0) {
             fManager.popBackStack();
-            toolbarShow(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
         } else super.onBackPressed();
     }
 
-    //Use this method to share items
     private void setShareIntent(Intent shareIntent) {
         if (mShareActionProvider != null) {
             mShareActionProvider.setShareIntent(shareIntent);
@@ -133,6 +133,34 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(duration)
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
+    }
+
+    public void loadFriendsList(){
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
+        fTransaction.addToBackStack("FriendsListFragment");
+        fTransaction.commit();
+    }
+
+    public void addAlbumListAsSecondFragment() {
+        FragmentManager fmSecondFragment = getFragmentManager();
+        FragmentTransaction ftSecondFragment = fmSecondFragment.beginTransaction();
+        if (fragmentTag == "tablet") {
+            ftSecondFragment.add(R.id.containerTwo, new AlbumListFragment());
+            ftSecondFragment.addToBackStack("AlbumListFragment");
+            ftSecondFragment.commit();
+        }
+    }
+
+    public void addPhotoListAsSecondFragment() {
+        FragmentManager fmSecondFragment = getFragmentManager();
+        FragmentTransaction ftSecondFragment = fmSecondFragment.beginTransaction();
+        if (fragmentTag == "tablet") {
+            ftSecondFragment.add(R.id.containerTwo, new PhotoListFragment());
+            ftSecondFragment.addToBackStack("PhotoListFragment");
+            ftSecondFragment.commit();
+        }
     }
 
     @Override

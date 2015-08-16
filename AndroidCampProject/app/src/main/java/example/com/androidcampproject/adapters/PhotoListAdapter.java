@@ -33,8 +33,6 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
 public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder> {
 
     private List<Photo> photos = new ArrayList<>(0);
-    private Toolbar toolbar = MainActivity.toolbar;
-
     public Context context = PhotoListFragment.photoListFragmentContext;
     public PhotoListAdapter(List<Photo> photos) {
         this.photos = photos;
@@ -56,10 +54,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
                 String src = photos.get(i).getSrc_big();
                 String text = photos.get(i).getText();
                 EventBus.getDefault().post(new PhotoClickEvent(src, text));
-                if (toolbar.getTranslationY() == 0)
-                    toolbarHide(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
-                if (toolbar.getTranslationY() != 0)
-                    toolbarShow(toolbar, MyUtilities.TOOLBAR_ANIMATION_SPEED);
             }
         });
         holder.textView.setText(photos.get(i).getText());
@@ -79,22 +73,6 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
         return photos.size();
     }
 
-    public void toolbarHide(Toolbar toolbar, int duration) {
-        toolbar.animate()
-                .translationY(-toolbar.getBottom())
-                .setDuration(duration)
-                .setInterpolator(new AccelerateInterpolator())
-                .start();
-    }
-
-    public void toolbarShow(Toolbar toolbar, int duration) {
-        toolbar.animate()
-                .translationY(0)
-                .setDuration(duration)
-                .setInterpolator(new DecelerateInterpolator())
-                .start();
-    }
-
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
         TextView textView;
         ImageView imageView;
@@ -109,6 +87,4 @@ public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.Phot
     public void setData(List<Photo> photos) {
         this.photos = photos;
     }
-
-
 }

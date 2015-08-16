@@ -1,6 +1,7 @@
 package example.com.androidcampproject.fragments;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,6 +16,7 @@ import android.webkit.WebViewClient;
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.MyUtilities;
 import example.com.androidcampproject.R;
+import example.com.androidcampproject.activities.MainActivity;
 import example.com.androidcampproject.events.UserSignedInEvent;
 
 /**
@@ -27,12 +29,10 @@ public class WebViewClientFragment extends Fragment {
     static final String RESPONSE_TYPE = "token";
     static final String SCOPE = "offline,wall,friends";
     static final String DISPLAY = "mobile";
-
     private String login_url = OAUTH_URI + "?redirect_uri=" + REDIRECT_URI + "&client_id=" + CLIENT_ID +
             "&response_type=" + RESPONSE_TYPE + "&scope=" + SCOPE + "&display=" + DISPLAY;
     private WebView myWebView;
     private EventBus bus = EventBus.getDefault();
-
     private String accessToken;
     private String userId;
 
@@ -42,7 +42,6 @@ public class WebViewClientFragment extends Fragment {
                              ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.web_view_fragment_layout, container, false);
         myWebView = (WebView) view.findViewById(R.id.myWebView);
-
         myWebView.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
