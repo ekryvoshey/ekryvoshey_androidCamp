@@ -3,6 +3,7 @@ package example.com.androidcampproject;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
@@ -10,7 +11,8 @@ import android.util.AttributeSet;
  * Created by Esmond on 11.08.2015.
  */
 public class AutofitRecyclerView extends RecyclerView {
-    private GridLayoutManager manager;
+    private GridLayoutManager gridLayoutManager;
+    private LinearLayoutManager linearLayoutManager;
     private int columnWidth = -1;
 
     public AutofitRecyclerView(Context context) {
@@ -38,8 +40,8 @@ public class AutofitRecyclerView extends RecyclerView {
             array.recycle();
         }
 
-        manager = new GridLayoutManager(getContext(), 1);
-        setLayoutManager(manager);
+        gridLayoutManager = new GridLayoutManager(getContext(), 1);
+        setLayoutManager(gridLayoutManager);
     }
 
     @Override
@@ -47,7 +49,7 @@ public class AutofitRecyclerView extends RecyclerView {
         super.onMeasure(widthSpec, heightSpec);
         if (columnWidth > 0) {
             int spanCount = Math.max(1, getMeasuredWidth() / columnWidth);
-            manager.setSpanCount(spanCount);
+            gridLayoutManager.setSpanCount(spanCount);
         }
     }
 }

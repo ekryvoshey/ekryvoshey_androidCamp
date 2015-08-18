@@ -42,7 +42,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     @Override
     public void onBindViewHolder(FriendViewHolder holder, int i) {
         final long userId = friends.get(i).getUser_id();
-        holder.cv.setOnClickListener(new View.OnClickListener() {
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new FriendClickEvent(userId));
@@ -67,14 +67,14 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     }
 
     public static class FriendViewHolder extends RecyclerView.ViewHolder {
-        CardView cv;
+        CardView cardView;
         TextView firstName;
         TextView lastName;
         ImageView personPhoto;
 
         FriendViewHolder(View itemView){
             super(itemView);
-            cv = (CardView) itemView.findViewById(R.id.friends_card_view);
+            cardView = (CardView) itemView.findViewById(R.id.albums_list_view);
             firstName = (TextView)itemView.findViewById(R.id.person_name);
             lastName = (TextView)itemView.findViewById(R.id.person_last_name);
             personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);

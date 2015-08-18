@@ -4,4 +4,7 @@
     <string name="hello_world">Hello world!</string>
     <string name="appName">Android summer camp</string>
     <string name="action_settings">Settings</string>
+    <string name="toggle_button_text">Change view</string>
+    <string name="share">Share</string>
+    <string name="toggle_view">Toggle view</string>
 </resources>

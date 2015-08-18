@@ -15,7 +15,7 @@
             android:padding="8dp">
 
             <ImageView
-                android:id="@+id/person_photo"
+                android:id="@+id/album_image"
                 android:layout_width="125dp"
                 android:layout_height="125dp"
                 android:layout_alignParentLeft="true"
@@ -23,22 +23,13 @@
                 android:layout_marginRight="4dp" />
 
             <TextView
-                android:id="@+id/person_name"
+                android:id="@+id/album_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/person_photo"
+                android:layout_toRightOf="@+id/album_image"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
-                android:gravity="center"
-                android:textSize="30sp" />
-
-            <TextView
-                android:id="@+id/person_last_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="16dp"
-                android:layout_toRightOf="@+id/person_name"
                 android:gravity="center"
                 android:textSize="30sp" />
 

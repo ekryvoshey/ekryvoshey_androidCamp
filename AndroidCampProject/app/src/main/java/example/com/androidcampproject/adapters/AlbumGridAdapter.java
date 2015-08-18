@@ -15,26 +15,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
+import example.com.androidcampproject.objects.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.fragments.AlbumListFragment;
-import example.com.androidcampproject.objects.Album;
 
 /**
- * Created by Esmond on 18.08.2015.
+ * Created by Esmond on 02.08.2015.
  */
-public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder> {
+public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.AlbumViewHolder> {
     private List<Album> albums = new ArrayList<>(0);
     public Context context = AlbumListFragment.albumListFragmentContext;
 
-    public AlbumListAdapter(List<Album> albums){
+    public AlbumGridAdapter(List<Album> albums){
         this.albums = albums;
     }
 
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.albums_list_layout, viewGroup, false);
+                inflate(R.layout.albums_grid_view_layout, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }

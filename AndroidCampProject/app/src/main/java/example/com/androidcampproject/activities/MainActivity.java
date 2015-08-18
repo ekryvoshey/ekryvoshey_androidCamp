@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.support.v7.widget.ShareActionProvider;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.MyUtilities;
@@ -39,7 +40,13 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem shareItem = menu.findItem(R.id.menu_item_share);
+        MenuItem shareItem = menu.findItem(R.id.action_share);
+        MenuItem listView = menu.findItem(R.id.action_list_view);
+        listView.setVisible(false);
+        this.invalidateOptionsMenu();
+        MenuItem gridView = menu.findItem(R.id.action_grid_view);
+        gridView.setVisible(false);
+        this.invalidateOptionsMenu();
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
         return true;
     }
@@ -58,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragmentTwo = getSupportFragmentManager().findFragmentById(R.id.containerTwo);
         if (fragmentTwo == null && width > 768)
             fragmentTag = "tablet";
-        if(width <= 768 )
+        if (width <= 768)
             fragmentTag = "phone";
 
         loadFriendsList();
@@ -135,7 +142,7 @@ public class MainActivity extends AppCompatActivity {
                 .start();
     }
 
-    public void loadFriendsList(){
+    public void loadFriendsList() {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
         fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
