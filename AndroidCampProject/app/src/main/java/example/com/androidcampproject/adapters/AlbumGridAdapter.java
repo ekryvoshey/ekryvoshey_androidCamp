@@ -1,6 +1,7 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
+import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import example.com.androidcampproject.fragments.AlbumListFragment;
  */
 public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.AlbumViewHolder> {
     private List<Album> albums = new ArrayList<>(0);
+    @LayoutRes
+    public static int layoutId = R.layout.albums_grid_view_layout;
     public Context context = AlbumListFragment.albumListFragmentContext;
 
     public AlbumGridAdapter(List<Album> albums){
@@ -34,7 +37,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.albums_grid_view_layout, viewGroup, false);
+                inflate(layoutId, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }
@@ -77,6 +80,10 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
             textView = (TextView)itemView.findViewById(R.id.album_name);
             imageView = (ImageView)itemView.findViewById(R.id.album_image);
         }
+    }
+
+    public void setLayoutId(@LayoutRes int layoutId){
+        this.layoutId = layoutId;
     }
 
     public void setData(List<Album> albums){

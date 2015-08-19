@@ -4,23 +4,24 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.activities.MainActivity;
 import example.com.androidcampproject.adapters.AlbumGridAdapter;
-import example.com.androidcampproject.adapters.AlbumListAdapter;
+import example.com.androidcampproject.events.LayoutChangingEvent;
 import example.com.androidcampproject.objects.Album;
 import example.com.androidcampproject.AutofitRecyclerView;
 import example.com.androidcampproject.R;
@@ -31,10 +32,12 @@ import example.com.androidcampproject.responses.AlbumsListResponse;
  */
 public class AlbumListFragment extends Fragment {
     private List<Album> albums;
-    private AutofitRecyclerView recyclerView;
+    private AutofitRecyclerView autofitRecyclerView;
     private AlbumGridAdapter rvGridAdapter;
-    private AlbumListFragment rvListAdapter;
     private Toolbar toolbar = MainActivity.toolbar;
+    private int gridLayoutId = R.id.album_grid_view;
+    private int listLayoutId = R.id.albums_list_view;
+    public static String layoutTag = "grid";
     public static Context albumListFragmentContext;
 
     @Override
@@ -56,11 +59,11 @@ public class AlbumListFragment extends Fragment {
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem menuItem) {
-                if(menuItem.getItemId() == R.id.action_list_view){
-                    Log.d("text", "List view item selected");
+                if (menuItem.getItemId() == R.id.action_list_view) {
+                    EventBus.getDefault().post(new LayoutChangingEvent("list"));
                 }
-                if(menuItem.getItemId() == R.id.action_grid_view){
-                    Log.d("text", "Grid view item selected");
+                if (menuItem.getItemId() == R.id.action_grid_view) {
+                    EventBus.getDefault().post(new LayoutChangingEvent("grid"));
                 }
                 return true;
             }
@@ -78,12 +81,37 @@ public class AlbumListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.albums_list_layout, container, false);
         albumListFragmentContext = view.getContext();
-        recyclerView = (AutofitRecyclerView) view.findViewById(R.id.album_list);
-
+        autofitRecyclerView = (AutofitRecyclerView) view.findViewById(R.id.album_list);
         rvGridAdapter = new AlbumGridAdapter(albums);
-        recyclerView.setAdapter(rvGridAdapter);
+        autofitRecyclerView.setAdapter(rvGridAdapter);
 
         return view;
+    }
+
+    public void setGridLayout() {
+        if (layoutTag == "grid")
+            return;
+        rvGridAdapter = new AlbumGridAdapter(albums);
+        rvGridAdapter.setLayoutId(R.layout.albums_grid_view_layout);
+        autofitRecyclerView.setAdapter(rvGridAdapter);
+    }
+
+    @LayoutRes
+    public void setListLayout() {
+        if (layoutTag == "list")
+            return;
+        rvGridAdapter = new AlbumGridAdapter(albums);
+        rvGridAdapter.setLayoutId(R.layout.albums_list_view_layout);
+        autofitRecyclerView.setAdapter(rvGridAdapter);
+    }
+
+    public void onEvent(LayoutChangingEvent event) {
+        String layoutId = event.getLayoutId();
+        if (layoutId == "list") {
+            setListLayout();
+        }
+        if (layoutId == "grid")
+            setGridLayout();
     }
 
     public void onEvent(AlbumsListResponse event) {

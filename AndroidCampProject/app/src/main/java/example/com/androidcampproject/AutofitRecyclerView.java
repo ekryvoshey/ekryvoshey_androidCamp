@@ -7,6 +7,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
+import example.com.androidcampproject.events.LayoutChangingEvent;
+import example.com.androidcampproject.fragments.AlbumListFragment;
+
 /**
  * Created by Esmond on 11.08.2015.
  */
@@ -14,6 +17,7 @@ public class AutofitRecyclerView extends RecyclerView {
     private GridLayoutManager gridLayoutManager;
     private LinearLayoutManager linearLayoutManager;
     private int columnWidth = -1;
+    private static String layoutTag;
 
     public AutofitRecyclerView(Context context) {
         super(context);
@@ -30,7 +34,7 @@ public class AutofitRecyclerView extends RecyclerView {
         init(context, attrs);
     }
 
-    private void init(Context context, AttributeSet attrs) {
+    public void init(Context context, AttributeSet attrs) {
         if (attrs != null) {
             int[] attrsArray = {
                     android.R.attr.columnWidth
@@ -41,7 +45,12 @@ public class AutofitRecyclerView extends RecyclerView {
         }
 
         gridLayoutManager = new GridLayoutManager(getContext(), 1);
-        setLayoutManager(gridLayoutManager);
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        setLayoutManager(linearLayoutManager);
+//        if(layoutTag == "grid")
+//            setLayoutManager(gridLayoutManager);
+//        if(layoutTag == "list")
+//            setLayoutManager(linearLayoutManager);
     }
 
     @Override
