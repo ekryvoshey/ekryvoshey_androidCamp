@@ -1,7 +1,6 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,25 +15,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.objects.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
+import example.com.androidcampproject.fragments.AlbumGridFragment;
 import example.com.androidcampproject.fragments.AlbumListFragment;
+import example.com.androidcampproject.objects.Album;
 
 /**
- * Created by Esmond on 02.08.2015.
+ * Created by Esmond on 22.08.2015.
  */
-public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.AlbumViewHolder> {
+public class AlbumListAdapter extends RecyclerView.Adapter<AlbumListAdapter.AlbumViewHolder>{
     private List<Album> albums = new ArrayList<>(0);
     public Context context = AlbumListFragment.albumListFragmentContext;
-    public AlbumGridAdapter(List<Album> albums){
+    public AlbumListAdapter(List<Album> albums){
         this.albums = albums;
     }
 
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.albums_grid_view_layout, viewGroup, false);
+                inflate(R.layout.albums_list_view_layout, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }
@@ -43,7 +43,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
     public void onBindViewHolder(AlbumViewHolder holder, int i){
         final long ownerId = albums.get(i).getOwner_id();
         final long albumId = albums.get(i).getAid();
-        holder.imageView.setOnClickListener(new View.OnClickListener(){
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new AlbumClickEvent(ownerId, albumId));
@@ -73,7 +73,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
 
         AlbumViewHolder(View itemView){
             super(itemView);
-            cardView = (CardView)itemView.findViewById(R.id.album_list);
+            cardView = (CardView)itemView.findViewById(R.id.albums_list_view);
             textView = (TextView)itemView.findViewById(R.id.album_name);
             imageView = (ImageView)itemView.findViewById(R.id.album_image);
         }

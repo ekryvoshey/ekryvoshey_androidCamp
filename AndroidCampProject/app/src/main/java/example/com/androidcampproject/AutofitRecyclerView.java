@@ -15,9 +15,7 @@ import example.com.androidcampproject.fragments.AlbumListFragment;
  */
 public class AutofitRecyclerView extends RecyclerView {
     private GridLayoutManager gridLayoutManager;
-    private LinearLayoutManager linearLayoutManager;
     private int columnWidth = -1;
-    private static String layoutTag;
 
     public AutofitRecyclerView(Context context) {
         super(context);
@@ -45,12 +43,7 @@ public class AutofitRecyclerView extends RecyclerView {
         }
 
         gridLayoutManager = new GridLayoutManager(getContext(), 1);
-        linearLayoutManager = new LinearLayoutManager(getContext());
-        setLayoutManager(linearLayoutManager);
-//        if(layoutTag == "grid")
-//            setLayoutManager(gridLayoutManager);
-//        if(layoutTag == "list")
-//            setLayoutManager(linearLayoutManager);
+        setLayoutManager(gridLayoutManager);
     }
 
     @Override
