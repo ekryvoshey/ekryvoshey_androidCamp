@@ -43,7 +43,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
     public void onBindViewHolder(AlbumViewHolder holder, int i){
         final long ownerId = albums.get(i).getOwner_id();
         final long albumId = albums.get(i).getAid();
-        holder.imageView.setOnClickListener(new View.OnClickListener(){
+        holder.cardView.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
                 EventBus.getDefault().post(new AlbumClickEvent(ownerId, albumId));
@@ -73,7 +73,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
 
         AlbumViewHolder(View itemView){
             super(itemView);
-            cardView = (CardView)itemView.findViewById(R.id.album_list);
+            cardView = (CardView)itemView.findViewById(R.id.album_grid_view);
             textView = (TextView)itemView.findViewById(R.id.album_name);
             imageView = (ImageView)itemView.findViewById(R.id.album_image);
         }
