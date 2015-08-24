@@ -53,10 +53,8 @@ public class AlbumGridFragment extends Fragment {
         int id = item.getItemId();
         switch (id){
             case R.id.action_list_view:
-                Toast.makeText(getActivity(), "List view item selected", Toast.LENGTH_LONG);
                 break;
             case R.id.action_grid_view:
-                Toast.makeText(getActivity(), "Grid view item selected", Toast.LENGTH_LONG);
                 break;
             default:
                 return false;
@@ -73,9 +71,9 @@ public class AlbumGridFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.albums_grid_view_layout, container, false);
+        View view = inflater.inflate(R.layout.album_grid_layout, container, false);
         albumGridFragmentContext = view.getContext();
-        AutofitRecyclerView autofitRecyclerView = (AutofitRecyclerView) view.findViewById(R.id.album_list);
+        AutofitRecyclerView autofitRecyclerView = (AutofitRecyclerView) view.findViewById(R.id.album_grid);
         rvGridAdapter = new AlbumGridAdapter(albums);
         autofitRecyclerView.setAdapter(rvGridAdapter);
 

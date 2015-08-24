@@ -55,10 +55,8 @@ public class AlbumListFragment extends Fragment {
         int id = item.getItemId();
         switch (id){
             case R.id.action_list_view:
-                Toast.makeText(getActivity(), "List view item selected", Toast.LENGTH_LONG);
                 break;
             case R.id.action_grid_view:
-                Toast.makeText(getActivity(), "Grid view item selected", Toast.LENGTH_LONG);
                 break;
             default:
                 return false;
