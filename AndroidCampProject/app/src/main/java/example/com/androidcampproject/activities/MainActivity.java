@@ -26,28 +26,26 @@ import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.events.PhotoClickEvent;
 import example.com.androidcampproject.events.UserSignedInEvent;
+import example.com.androidcampproject.fragments.AlbumGridFragment;
 import example.com.androidcampproject.fragments.AlbumListFragment;
 import example.com.androidcampproject.fragments.FriendsListFragment;
 import example.com.androidcampproject.fragments.PhotoListFragment;
 import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
+
     private ShareActionProvider mShareActionProvider;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
+    private boolean isTablet;
     public static Toolbar toolbar;
-    public static String fragmentTag = "phone";
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem shareItem = menu.findItem(R.id.action_share);
-        MenuItem listView = menu.findItem(R.id.action_list_view);
-        listView.setVisible(false);
-        this.invalidateOptionsMenu();
-        MenuItem gridView = menu.findItem(R.id.action_grid_view);
-        gridView.setVisible(false);
-        this.invalidateOptionsMenu();
         mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
+        shareItem.setVisible(false);
+        this.invalidateOptionsMenu();
         return true;
     }
 
@@ -58,43 +56,20 @@ public class MainActivity extends AppCompatActivity {
         EventBus.getDefault().register(this);
         overridePendingTransition(R.animator.activity_open_translate, R.animator.activity_close_scale);
 
-        initToolbar();
-
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int width = displayMetrics.widthPixels;
         Fragment fragmentTwo = getSupportFragmentManager().findFragmentById(R.id.containerTwo);
-        if (fragmentTwo == null && width > 768)
-            fragmentTag = "tablet";
-        if (width <= 768)
-            fragmentTag = "phone";
-
+        isTablet = (fragmentTwo == null && width > 768);
         loadFriendsList();
+        initToolbar();
     }
 
     public void onEvent(FriendClickEvent event) {
-        FragmentManager fManager = getFragmentManager();
-        FragmentTransaction fTransaction = fManager.beginTransaction();
-        if (fragmentTag == "phone") {
-            fTransaction.add(R.id.container, new AlbumListFragment(), "AlbumListFragment");
-            fTransaction.addToBackStack("AlbumListFragment");
-            fTransaction.commit();
-        }
-        if (fragmentTag == "tablet") {
-            addAlbumListAsSecondFragment();
-        }
+        albumGridFragmentChange();
     }
 
     public void onEvent(AlbumClickEvent event) {
-        FragmentManager fManager = getFragmentManager();
-        FragmentTransaction fTransaction = fManager.beginTransaction();
-        if (fragmentTag == "phone") {
-            fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
-            fTransaction.addToBackStack("PhotoListFragment");
-            fTransaction.commit();
-        }
-        if (fragmentTag == "tablet") {
-            addPhotoListAsSecondFragment();
-        }
+        photoGridFragmentChange();
     }
 
     public void onEvent(PhotoClickEvent event) {
@@ -102,6 +77,42 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra("image", event.getSrc());
         intent.putExtra("text", event.getText());
         startActivity(intent);
+    }
+
+    public void loadFriendsList() {
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
+        fTransaction.addToBackStack("FriendsListFragment");
+        fTransaction.commit();
+    }
+
+    public void albumGridFragmentChange(){
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        if(isTablet){
+            fTransaction.add(R.id.containerTwo, new AlbumGridFragment(), "AlbumGridFragment");
+            fTransaction.addToBackStack("AlbumGridFragment");
+            fTransaction.commit();
+        } else {
+            fTransaction.add(R.id.container, new AlbumGridFragment(), "AlbumGridFragment");
+            fTransaction.addToBackStack("AlbumGridFragment");
+            fTransaction.commit();
+        }
+    }
+
+    public void photoGridFragmentChange(){
+        FragmentManager fManager = getFragmentManager();
+        FragmentTransaction fTransaction = fManager.beginTransaction();
+        if(isTablet){
+            fTransaction.add(R.id.containerTwo, new PhotoListFragment(), "PhotoListFragment");
+            fTransaction.addToBackStack("PhotoListFragment");
+            fTransaction.commit();
+        }else {
+            fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
+            fTransaction.addToBackStack("PhotoListFragment");
+            fTransaction.commit();
+        }
     }
 
     @Override
@@ -140,34 +151,6 @@ public class MainActivity extends AppCompatActivity {
                 .setDuration(duration)
                 .setInterpolator(new DecelerateInterpolator())
                 .start();
-    }
-
-    public void loadFriendsList() {
-        FragmentManager fManager = getFragmentManager();
-        FragmentTransaction fTransaction = fManager.beginTransaction();
-        fTransaction.add(R.id.container, new FriendsListFragment(), "FriendsListFragment");
-        fTransaction.addToBackStack("FriendsListFragment");
-        fTransaction.commit();
-    }
-
-    public void addAlbumListAsSecondFragment() {
-        FragmentManager fmSecondFragment = getFragmentManager();
-        FragmentTransaction ftSecondFragment = fmSecondFragment.beginTransaction();
-        if (fragmentTag == "tablet") {
-            ftSecondFragment.add(R.id.containerTwo, new AlbumListFragment());
-            ftSecondFragment.addToBackStack("AlbumListFragment");
-            ftSecondFragment.commit();
-        }
-    }
-
-    public void addPhotoListAsSecondFragment() {
-        FragmentManager fmSecondFragment = getFragmentManager();
-        FragmentTransaction ftSecondFragment = fmSecondFragment.beginTransaction();
-        if (fragmentTag == "tablet") {
-            ftSecondFragment.add(R.id.containerTwo, new PhotoListFragment());
-            ftSecondFragment.addToBackStack("PhotoListFragment");
-            ftSecondFragment.commit();
-        }
     }
 
     @Override
