@@ -8,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 
 import example.com.androidcampproject.events.LayoutChangingEvent;
-import example.com.androidcampproject.fragments.AlbumListFragment;
 
 /**
  * Created by Esmond on 11.08.2015.

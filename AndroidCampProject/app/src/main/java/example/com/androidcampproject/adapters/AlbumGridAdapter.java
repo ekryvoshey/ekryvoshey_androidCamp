@@ -1,7 +1,6 @@
 package example.com.androidcampproject.adapters;
 
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -20,7 +19,6 @@ import example.com.androidcampproject.fragments.AlbumGridFragment;
 import example.com.androidcampproject.objects.Album;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
-import example.com.androidcampproject.fragments.AlbumListFragment;
 
 /**
  * Created by Esmond on 02.08.2015.
@@ -35,7 +33,7 @@ public class AlbumGridAdapter extends RecyclerView.Adapter<AlbumGridAdapter.Albu
     @Override
     public AlbumViewHolder onCreateViewHolder(ViewGroup viewGroup, int i){
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.albums_grid_view_layout, viewGroup, false);
+                inflate(R.layout.albums_grid_card_view_layout, viewGroup, false);
         AlbumViewHolder avh = new AlbumViewHolder(view);
         return avh;
     }

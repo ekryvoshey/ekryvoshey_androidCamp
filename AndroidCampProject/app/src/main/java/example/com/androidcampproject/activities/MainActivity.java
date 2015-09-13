@@ -2,35 +2,27 @@ package example.com.androidcampproject.activities;
 
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.support.v7.widget.ShareActionProvider;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.MyUtilities;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.AlbumClickEvent;
 import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.events.PhotoClickEvent;
-import example.com.androidcampproject.events.UserSignedInEvent;
 import example.com.androidcampproject.fragments.AlbumGridFragment;
-import example.com.androidcampproject.fragments.AlbumListFragment;
 import example.com.androidcampproject.fragments.FriendsListFragment;
 import example.com.androidcampproject.fragments.PhotoListFragment;
-import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -73,10 +65,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEvent(PhotoClickEvent event) {
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        intent.putExtra("image", event.getSrc());
-        intent.putExtra("text", event.getText());
-        startActivity(intent);
+        loadDetailsActivity(event);
     }
 
     public void loadFriendsList() {
@@ -87,10 +76,10 @@ public class MainActivity extends AppCompatActivity {
         fTransaction.commit();
     }
 
-    public void albumGridFragmentChange(){
+    public void albumGridFragmentChange() {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        if(isTablet){
+        if (isTablet) {
             fTransaction.add(R.id.containerTwo, new AlbumGridFragment(), "AlbumGridFragment");
             fTransaction.addToBackStack("AlbumGridFragment");
             fTransaction.commit();
@@ -101,18 +90,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void photoGridFragmentChange(){
+    public void photoGridFragmentChange() {
         FragmentManager fManager = getFragmentManager();
         FragmentTransaction fTransaction = fManager.beginTransaction();
-        if(isTablet){
+        if (isTablet) {
             fTransaction.add(R.id.containerTwo, new PhotoListFragment(), "PhotoListFragment");
             fTransaction.addToBackStack("PhotoListFragment");
             fTransaction.commit();
-        }else {
+        } else {
             fTransaction.add(R.id.container, new PhotoListFragment(), "PhotoListFragment");
             fTransaction.addToBackStack("PhotoListFragment");
             fTransaction.commit();
         }
+    }
+
+    public void loadDetailsActivity(PhotoClickEvent event) {
+        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
+        intent.putExtra("image", event.getSrc());
+        intent.putExtra("text", event.getText());
+        startActivity(intent);
+    }
+
+    public void loadDetailsFragment() {
     }
 
     @Override

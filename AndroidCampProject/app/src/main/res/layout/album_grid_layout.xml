@@ -8,9 +8,9 @@
         android:id="@+id/album_grid"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:columnWidth="250dp"
+        android:columnWidth="100dp"
         android:clipToPadding="false"
         android:paddingTop="?attr/actionBarSize"
-        android:background="#f1f1f1"/>
+        android:background="@color/lightGrey"/>
 
 </GridLayout>

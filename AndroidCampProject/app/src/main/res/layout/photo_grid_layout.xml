@@ -9,10 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/photo_list"
-        android:columnWidth="250dp"
+        android:columnWidth="100dp"
         android:paddingTop="?attr/actionBarSize"
         android:clipToPadding="false"
-        android:background="#f1f1f1"
-        />
+        android:background="@color/lightGrey" />
 
 </GridLayout>

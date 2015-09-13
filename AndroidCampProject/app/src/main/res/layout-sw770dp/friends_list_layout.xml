@@ -10,7 +10,7 @@
         android:layout_height="match_parent"
         android:id="@+id/friends_list"
         android:clipToPadding="false"
-        android:background="#f1f1f1"
+        android:background="@color/lightGrey"
         />
 
 </LinearLayout>

@@ -1,10 +1,8 @@
 package example.com.androidcampproject.activities;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.widget.ImageView;
@@ -12,10 +10,6 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
-import java.io.InputStream;
-import java.net.URL;
-
-import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.R;
 
 /**

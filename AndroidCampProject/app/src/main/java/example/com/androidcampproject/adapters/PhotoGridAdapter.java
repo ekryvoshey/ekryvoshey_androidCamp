@@ -14,26 +14,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.events.PhotoClickEvent;
-import example.com.androidcampproject.objects.Photo;
 import example.com.androidcampproject.R;
+import example.com.androidcampproject.events.PhotoClickEvent;
 import example.com.androidcampproject.fragments.PhotoListFragment;
+import example.com.androidcampproject.objects.Photo;
 
 /**
  * Created by Esmond on 03.08.2015.
  */
-public class PhotoListAdapter extends RecyclerView.Adapter<PhotoListAdapter.PhotoViewHolder> {
+public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.PhotoViewHolder> {
 
-    private List<Photo> photos = new ArrayList<>(0);
+    public static List<Photo> photos = new ArrayList<>(0);
     public Context context = PhotoListFragment.photoListFragmentContext;
-    public PhotoListAdapter(List<Photo> photos) {
+
+    public PhotoGridAdapter(List<Photo> photos) {
         this.photos = photos;
     }
 
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).
-                inflate(R.layout.photo_grid_view_layout, viewGroup, false);
+                inflate(R.layout.photo_grid_card_view_layout, viewGroup, false);
         PhotoViewHolder pvh = new PhotoViewHolder(view);
         return pvh;
     }

@@ -16,17 +16,4 @@
         android:icon="@drawable/ic_action_share"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/action_list_view"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:title="@string/toggle_view"
-        android:icon="@drawable/ic_view_list_white_24dp"
-        app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/action_grid_view"
-        android:actionProviderClass="android.widget.ShareActionProvider"
-        android:title="@string/toggle_view"
-        android:icon="@drawable/ic_view_module_white_24dp"
-        app:showAsAction="always"/>
 </menu>

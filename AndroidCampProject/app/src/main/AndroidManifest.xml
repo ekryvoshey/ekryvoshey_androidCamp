@@ -27,6 +27,11 @@
             android:label="Main activity"></activity>
 
         <activity
+            android:name=".activities.PhotoDetailsActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:label="Main activity"></activity>
+
+        <activity
             android:name=".activities.DetailsActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Details activity"></activity>

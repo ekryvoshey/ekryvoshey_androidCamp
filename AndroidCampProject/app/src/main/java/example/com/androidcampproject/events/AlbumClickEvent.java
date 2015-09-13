@@ -6,7 +6,8 @@ package example.com.androidcampproject.events;
 public class AlbumClickEvent {
     long albumId;
     long ownerId;
-    public AlbumClickEvent(long ownerId, long albumId){
+
+    public AlbumClickEvent(long ownerId, long albumId) {
         this.albumId = albumId;
     }
 
