@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.R;
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEvent(PhotoClickEvent event) {
-        loadDetailsActivity(event);
+//        loadDetailsActivity(event);
+        loadPagerActivity(event);
     }
 
     public void loadFriendsList() {
@@ -108,6 +110,15 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
         intent.putExtra("image", event.getSrc());
         intent.putExtra("text", event.getText());
+        intent.putExtra("position", event.getPosition());
+        startActivity(intent);
+    }
+
+    public void loadPagerActivity(PhotoClickEvent event){
+        Intent intent = new Intent(MainActivity.this, ImageViewPager.class);
+        intent.putExtra("image", event.getSrc());
+        intent.putExtra("text", event.getText());
+        intent.putExtra("position", event.getPosition());
         startActivity(intent);
     }
 

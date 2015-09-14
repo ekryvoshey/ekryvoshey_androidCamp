@@ -33,9 +33,9 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
 
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View view = LayoutInflater.from(viewGroup.getContext()).
+        View rootView  = LayoutInflater.from(viewGroup.getContext()).
                 inflate(R.layout.photo_grid_card_view_layout, viewGroup, false);
-        PhotoViewHolder pvh = new PhotoViewHolder(view);
+        PhotoViewHolder pvh = new PhotoViewHolder(rootView);
         return pvh;
     }
 
@@ -46,7 +46,8 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
             public void onClick(View v) {
                 String src = photos.get(i).getSrc_big();
                 String text = photos.get(i).getText();
-                EventBus.getDefault().post(new PhotoClickEvent(src, text));
+                int position = photos.indexOf(photos.get(i));
+                EventBus.getDefault().post(new PhotoClickEvent(src, text, position));
             }
         });
         holder.textView.setText(photos.get(i).getText());

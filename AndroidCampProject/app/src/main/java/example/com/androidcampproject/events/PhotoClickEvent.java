@@ -6,10 +6,12 @@ package example.com.androidcampproject.events;
 public class PhotoClickEvent {
     private String src;
     private String text;
+    private int position;
 
-    public PhotoClickEvent(String src, String text) {
+    public PhotoClickEvent(String src, String text, int position) {
         this.src = src;
         this.text = text;
+        this.position = position;
     }
 
     public String getSrc() {
@@ -18,5 +20,9 @@ public class PhotoClickEvent {
 
     public String getText() {
         return text;
+    }
+
+    public int getPosition() {
+        return position;
     }
 }

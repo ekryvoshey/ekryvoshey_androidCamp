@@ -27,7 +27,7 @@
             android:label="Main activity"></activity>
 
         <activity
-            android:name=".activities.PhotoDetailsActivity"
+            android:name=".activities.ImageViewPager"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="Main activity"></activity>
 
