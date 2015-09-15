@@ -9,17 +9,12 @@ import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.ActionMenuView;
 import android.widget.Toast;
 
 import java.util.List;
 
 import example.com.androidcampproject.DepthPageTransformer;
-import example.com.androidcampproject.MyUtilities;
+import example.com.androidcampproject.DetailOnPageChangeListener;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.ImagePagerAdapter;
 import example.com.androidcampproject.adapters.PhotoGridAdapter;
@@ -31,23 +26,9 @@ import example.com.androidcampproject.objects.Photo;
 public class ImageViewPager extends AppCompatActivity {
     private int position;
     private Toolbar toolbar;
+    private ViewPager viewPager;
     private ShareActionProvider mShareActionProvider;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.view_pager);
-
-        position = getIntent().getIntExtra("position", 0);
-
-        List<Photo> photos = PhotoGridAdapter.photos;
-        ImagePagerAdapter pagerAdapter = new ImagePagerAdapter(photos);
-        ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-        viewPager.setAdapter(pagerAdapter);
-        viewPager.setCurrentItem(position);
-        viewPager.setPageTransformer(true, new DepthPageTransformer());
-        initToolbar();
-    }
+    private static List<Photo> photos;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -59,10 +40,34 @@ public class ImageViewPager extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.view_pager);
+
+        position = getIntent().getIntExtra("position", 0);
+        photos = PhotoGridAdapter.photos;
+
+        ImagePagerAdapter pagerAdapter = new ImagePagerAdapter(photos);
+        viewPager = (ViewPager) findViewById(R.id.pager);
+        viewPager.setAdapter(pagerAdapter);
+        viewPager.setCurrentItem(position);
+        viewPager.setPageTransformer(true, new DepthPageTransformer());
+        viewPager.setOnPageChangeListener(new DetailOnPageChangeListener());
+
+        initToolbar();
+    }
+
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_share:
-                Toast.makeText(getApplicationContext(), "Share clicked", Toast.LENGTH_SHORT).show();
+                String currentImageUrl = photos.get(viewPager.getCurrentItem()).getSrc_big();
+                Toast.makeText(getApplicationContext(), currentImageUrl, Toast.LENGTH_SHORT).show();
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_STREAM, currentImageUrl);
+                shareIntent.setType("image/jpeg");
+                startActivity(shareIntent);
                 break;
             default:
                 break;
@@ -76,14 +81,6 @@ public class ImageViewPager extends AppCompatActivity {
         this.getSupportActionBar().setDisplayShowTitleEnabled(false);
         setTitle(getString(R.string.appName));
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
-    }
-
-    public void toolbarHide(Toolbar toolbar, int duration) {
-        toolbar.animate()
-                .translationY(-toolbar.getBottom())
-                .setDuration(duration)
-                .setInterpolator(new AccelerateInterpolator())
-                .start();
     }
 
     private void setShareIntent(Intent shareIntent) {

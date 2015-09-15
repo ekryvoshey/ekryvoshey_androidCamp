@@ -11,7 +11,6 @@ import example.com.androidcampproject.activities.ImageViewPager;
  */
 public class DetailOnPageChangeListener extends ViewPager.SimpleOnPageChangeListener {
     private int currentPage;
-    private ShareActionProvider mShareActionProvider;
 
     @Override
     public void onPageSelected(int position) {
@@ -20,12 +19,6 @@ public class DetailOnPageChangeListener extends ViewPager.SimpleOnPageChangeList
 
     public final int getCurrentPage() {
         return currentPage;
-    }
-
-    public void setShareIntent(Intent shareIntent) {
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent);
-        }
     }
 }
 
