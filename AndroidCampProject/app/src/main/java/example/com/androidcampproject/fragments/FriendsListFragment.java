@@ -14,11 +14,11 @@ import android.view.ViewGroup;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.objects.Friend;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.adapters.FriendsListAdapter;
-import example.com.androidcampproject.responses.FriendsListResponse;
 import example.com.androidcampproject.events.LoadFriendsListFragmentEvent;
+import example.com.androidcampproject.objects.Friend;
+import example.com.androidcampproject.responses.FriendsListResponse;
 
 /**
  * Created by Esmond on 15.07.2015.
@@ -71,7 +71,7 @@ public class FriendsListFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public void onEvent(FriendsListResponse event){
+    public void onEvent(FriendsListResponse event) {
         rvAdapter.setData(event.getResponse());
         rvAdapter.notifyDataSetChanged();
     }

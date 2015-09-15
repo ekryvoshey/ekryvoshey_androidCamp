@@ -12,7 +12,6 @@ import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.MyUtilities;
 import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.UserSignedInEvent;
-import example.com.androidcampproject.fragments.FriendsListFragment;
 import example.com.androidcampproject.fragments.WebViewClientFragment;
 
 /**
@@ -20,7 +19,7 @@ import example.com.androidcampproject.fragments.WebViewClientFragment;
  */
 public class LogInActivity extends AppCompatActivity {
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.log_in_activity);
         EventBus.getDefault().register(this);
@@ -43,7 +42,7 @@ public class LogInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void loadMainActivity(){
+    public void loadMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
@@ -33,7 +32,7 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
 
     @Override
     public PhotoViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View rootView  = LayoutInflater.from(viewGroup.getContext()).
+        View rootView = LayoutInflater.from(viewGroup.getContext()).
                 inflate(R.layout.photo_grid_card_view_layout, viewGroup, false);
         PhotoViewHolder pvh = new PhotoViewHolder(rootView);
         return pvh;
@@ -50,7 +49,6 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
                 EventBus.getDefault().post(new PhotoClickEvent(src, text, position));
             }
         });
-        holder.textView.setText(photos.get(i).getText());
         Glide.with(context).
                 load(photos.get(i).getSrc()).
                 into(holder.imageView);
@@ -68,12 +66,10 @@ public class PhotoGridAdapter extends RecyclerView.Adapter<PhotoGridAdapter.Phot
     }
 
     public static class PhotoViewHolder extends RecyclerView.ViewHolder {
-        TextView textView;
         ImageView imageView;
 
         PhotoViewHolder(View itemView) {
             super(itemView);
-            textView = (TextView) itemView.findViewById(R.id.photo_name);
             imageView = (ImageView) itemView.findViewById(R.id.photo_image);
         }
     }

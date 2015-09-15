@@ -1,7 +1,6 @@
 package example.com.androidcampproject.fragments;
 
 import android.app.Fragment;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.webkit.WebViewClient;
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.MyUtilities;
 import example.com.androidcampproject.R;
-import example.com.androidcampproject.activities.MainActivity;
 import example.com.androidcampproject.events.UserSignedInEvent;
 
 /**

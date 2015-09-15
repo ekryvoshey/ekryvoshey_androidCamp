@@ -14,7 +14,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="4dp">
+            android:padding="8dp">
 
             <ImageView
                 android:id="@+id/photo_image"
@@ -23,15 +23,6 @@
                 android:scaleType="centerCrop"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentTop="true" />
-
-            <TextView
-                android:id="@+id/photo_name"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/photo_image"
-                android:padding="8dp"
-                android:textSize="10sp"
-                android:maxLength="13"/>
 
         </RelativeLayout>
 

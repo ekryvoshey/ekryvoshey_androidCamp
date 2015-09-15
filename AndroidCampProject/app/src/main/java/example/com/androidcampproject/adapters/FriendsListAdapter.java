@@ -15,19 +15,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.greenrobot.event.EventBus;
-import example.com.androidcampproject.objects.Friend;
+import example.com.androidcampproject.R;
 import example.com.androidcampproject.events.FriendClickEvent;
 import example.com.androidcampproject.fragments.FriendsListFragment;
-import example.com.androidcampproject.R;
+import example.com.androidcampproject.objects.Friend;
 
 /**
  * Created by Esmond on 15.07.2015.
  */
-public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder>{
+public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.FriendViewHolder> {
     public List<Friend> friends = new ArrayList<>(0);
     public Context context = FriendsListFragment.friendListFragmentContext;
 
-    public FriendsListAdapter(List<Friend> friends){
+    public FriendsListAdapter(List<Friend> friends) {
         this.friends = friends;
     }
 
@@ -62,7 +62,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Override
     public int getItemCount() {
-        if(friends == null) return 0;
+        if (friends == null) return 0;
         return friends.size();
     }
 
@@ -72,16 +72,16 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         TextView lastName;
         ImageView personPhoto;
 
-        FriendViewHolder(View itemView){
+        FriendViewHolder(View itemView) {
             super(itemView);
             cardView = (CardView) itemView.findViewById(R.id.albums_list_view);
-            firstName = (TextView)itemView.findViewById(R.id.person_name);
-            lastName = (TextView)itemView.findViewById(R.id.person_last_name);
-            personPhoto = (ImageView)itemView.findViewById(R.id.person_photo);
+            firstName = (TextView) itemView.findViewById(R.id.person_name);
+            lastName = (TextView) itemView.findViewById(R.id.person_last_name);
+            personPhoto = (ImageView) itemView.findViewById(R.id.person_photo);
         }
     }
 
-    public void setData(List<Friend> friends){
+    public void setData(List<Friend> friends) {
         this.friends = friends;
     }
 }

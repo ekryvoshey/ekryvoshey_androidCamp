@@ -30,8 +30,8 @@
                 android:id="@+id/album_name"
                 android:layout_below="@+id/album_image"
                 android:padding="2dp"
-                android:textSize="10sp"
-                android:maxLength="12"/>
+                android:textSize="12sp"
+                android:maxLength="10"/>
 
         </RelativeLayout>
 

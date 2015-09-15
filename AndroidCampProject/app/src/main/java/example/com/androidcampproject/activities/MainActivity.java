@@ -5,16 +5,11 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.R;
@@ -27,20 +22,9 @@ import example.com.androidcampproject.fragments.PhotoListFragment;
 
 public class MainActivity extends AppCompatActivity {
 
-    private ShareActionProvider mShareActionProvider;
     private DisplayMetrics displayMetrics = new DisplayMetrics();
     private boolean isTablet;
-    public static Toolbar toolbar;
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem shareItem = menu.findItem(R.id.action_share);
-        mShareActionProvider = (ShareActionProvider) MenuItemCompat.getActionProvider(shareItem);
-        shareItem.setVisible(false);
-        this.invalidateOptionsMenu();
-        return true;
-    }
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         int width = displayMetrics.widthPixels;
         Fragment fragmentTwo = getSupportFragmentManager().findFragmentById(R.id.containerTwo);
         isTablet = (fragmentTwo == null && width > 768);
+
         loadFriendsList();
         initToolbar();
     }
@@ -66,7 +51,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void onEvent(PhotoClickEvent event) {
-//        loadDetailsActivity(event);
         loadPagerActivity(event);
     }
 
@@ -106,23 +90,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void loadDetailsActivity(PhotoClickEvent event) {
-        Intent intent = new Intent(MainActivity.this, DetailsActivity.class);
-        intent.putExtra("image", event.getSrc());
-        intent.putExtra("text", event.getText());
-        intent.putExtra("position", event.getPosition());
-        startActivity(intent);
-    }
-
-    public void loadPagerActivity(PhotoClickEvent event){
+    public void loadPagerActivity(PhotoClickEvent event) {
         Intent intent = new Intent(MainActivity.this, ImageViewPager.class);
         intent.putExtra("image", event.getSrc());
         intent.putExtra("text", event.getText());
         intent.putExtra("position", event.getPosition());
         startActivity(intent);
-    }
-
-    public void loadDetailsFragment() {
     }
 
     @Override
@@ -131,12 +104,6 @@ public class MainActivity extends AppCompatActivity {
         if (fManager.getBackStackEntryCount() > 0) {
             fManager.popBackStack();
         } else super.onBackPressed();
-    }
-
-    private void setShareIntent(Intent shareIntent) {
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent);
-        }
     }
 
     public void initToolbar() {

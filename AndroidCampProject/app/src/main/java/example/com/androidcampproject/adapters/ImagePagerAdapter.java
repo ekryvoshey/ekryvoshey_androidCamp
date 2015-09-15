@@ -26,6 +26,11 @@ public class ImagePagerAdapter extends PagerAdapter {
     }
 
     @Override
+    public CharSequence getPageTitle(int position) {
+        return "Title";
+    }
+
+    @Override
     public Object instantiateItem(ViewGroup container, int position) {
         LayoutInflater li = (LayoutInflater) container.getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ImageView imageView = (ImageView) li.inflate(R.layout.view_pager_image, null);
