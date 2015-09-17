@@ -45,6 +45,7 @@ public class LogInActivity extends AppCompatActivity {
     public void loadMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+        finish();
     }
 
     @Override

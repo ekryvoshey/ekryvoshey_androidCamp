@@ -1,5 +1,6 @@
 package example.com.androidcampproject.activities;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -29,6 +30,7 @@ public class ImageViewPager extends AppCompatActivity {
     private ViewPager viewPager;
     private ShareActionProvider mShareActionProvider;
     private static List<Photo> photos;
+    public static Intent intent;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -47,6 +49,7 @@ public class ImageViewPager extends AppCompatActivity {
 
         position = getIntent().getIntExtra("position", 0);
         photos = PhotoGridAdapter.photos;
+        intent = this.getIntent();
 
         ImagePagerAdapter pagerAdapter = new ImagePagerAdapter(photos);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -83,9 +86,11 @@ public class ImageViewPager extends AppCompatActivity {
         toolbar.setTitleTextColor(getResources().getColor(android.R.color.white));
     }
 
-    private void setShareIntent(Intent shareIntent) {
-        if (mShareActionProvider != null) {
-            mShareActionProvider.setShareIntent(shareIntent);
-        }
+    @Override
+    public void onBackPressed() {
+        FragmentManager fManager = getFragmentManager();
+        if (fManager.getBackStackEntryCount() > 0) {
+            fManager.popBackStack();
+        } else super.onBackPressed();
     }
 }
