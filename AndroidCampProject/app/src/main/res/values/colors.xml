@@ -1,14 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <item name="white" type="color">#FFFFFF</item>
-    <item name="blue" type="color">#CC4FC3F7</item>
-    <item name="darkBlue" type="color">#CC01579B</item>
     <item name="lightGrey" type="color">#f1f1f1</item>
     <item name="black" type="color">#000000</item>
-
-    <integer-array name="androidcolors">
-        <item>@color/blue</item>
-        <item>@color/darkBlue</item>
-    </integer-array>
-
+    <item name="blue" type="color">#CC4FC3F7</item>
+    <item name="darkBlue" type="color">#CC01579B</item>
 </resources>

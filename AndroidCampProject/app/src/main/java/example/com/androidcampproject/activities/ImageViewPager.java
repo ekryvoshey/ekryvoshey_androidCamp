@@ -10,7 +10,6 @@ import android.support.v7.widget.ShareActionProvider;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -30,7 +29,7 @@ public class ImageViewPager extends AppCompatActivity {
     private ViewPager viewPager;
     private ShareActionProvider mShareActionProvider;
     private static List<Photo> photos;
-    public static Intent intent;
+    public static Intent pagerIntent;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -49,7 +48,7 @@ public class ImageViewPager extends AppCompatActivity {
 
         position = getIntent().getIntExtra("position", 0);
         photos = PhotoGridAdapter.photos;
-        intent = this.getIntent();
+        pagerIntent = this.getIntent();
 
         ImagePagerAdapter pagerAdapter = new ImagePagerAdapter(photos);
         viewPager = (ViewPager) findViewById(R.id.pager);
@@ -65,7 +64,6 @@ public class ImageViewPager extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_share:
                 String currentImageUrl = photos.get(viewPager.getCurrentItem()).getSrc_big();
-                Toast.makeText(getApplicationContext(), currentImageUrl, Toast.LENGTH_SHORT).show();
                 Intent shareIntent = new Intent();
                 shareIntent.setAction(Intent.ACTION_SEND);
                 shareIntent.putExtra(Intent.EXTRA_STREAM, currentImageUrl);
@@ -92,5 +90,12 @@ public class ImageViewPager extends AppCompatActivity {
         if (fManager.getBackStackEntryCount() > 0) {
             fManager.popBackStack();
         } else super.onBackPressed();
+    }
+
+    private void setShareIntent(Intent shareIntent) {
+        shareIntent = pagerIntent;
+        if (mShareActionProvider != null) {
+            mShareActionProvider.setShareIntent(shareIntent);
+        }
     }
 }

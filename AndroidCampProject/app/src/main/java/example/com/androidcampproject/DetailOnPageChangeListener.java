@@ -16,7 +16,7 @@ public class DetailOnPageChangeListener extends ViewPager.SimpleOnPageChangeList
 
     @Override
     public void onPageSelected(int position) {
-        intent = ImageViewPager.intent;
+        intent = ImageViewPager.pagerIntent;
         currentPage = position;
         setShareIntent(intent);
     }

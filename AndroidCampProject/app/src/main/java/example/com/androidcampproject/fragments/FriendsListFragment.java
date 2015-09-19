@@ -15,6 +15,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 import example.com.androidcampproject.R;
+import example.com.androidcampproject.activities.MainActivity;
 import example.com.androidcampproject.adapters.FriendsListAdapter;
 import example.com.androidcampproject.events.LoadFriendsListFragmentEvent;
 import example.com.androidcampproject.objects.Friend;
@@ -41,6 +42,7 @@ public class FriendsListFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         EventBus.getDefault().unregister(this);
+        getActivity().finish();
     }
 
     @Override
